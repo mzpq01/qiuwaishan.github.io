@@ -1,3 +1,4 @@
 # qiuwaishan.github.io
-ProblemSet0, Create a Hello Home Page
+for problem sets of 11.S947 2016
+MIT DUSP
 power by Waishan QIU
