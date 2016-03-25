@@ -1,3 +1,2 @@
 # qiuwaishan.github.io
-ProblemSet0, Create a Hello Home Page
-power by Waishan QIU
+for problem sets of 11.S947 2016 | power by Waishan QIU
