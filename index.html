@@ -46,11 +46,11 @@
                 SimpleFillSymbol) {
 
       var map, gp;
-      var driveTimes = "5 10 15";
+      var driveTimes = "1 5 10 15 30";
 
       // Initialize map, GP and image params
       map = new Map("mapDiv", {
-        basemap: "streets",
+        basemap: "topo",
         center: [-95.255, 38.96],
         zoom: 12
       });
@@ -63,7 +63,7 @@
         map.graphics.clear();
         var pointSymbol = new SimpleMarkerSymbol();
         pointSymbol.setOutline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 1);
-        pointSymbol.setSize(14);
+        pointSymbol.setSize(10);
         pointSymbol.setColor(new Color([0, 255, 0, 0.25]));
 
         var graphic = new Graphic(evt.mapPoint, pointSymbol);
@@ -85,21 +85,27 @@
           if (f === 0) {
             var polySymbolRed = new SimpleFillSymbol();
             polySymbolRed.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
-            polySymbolRed.setColor(new Color([255, 0, 0, 0.7]));
+            polySymbolRed.setColor(new Color([102,255,230, 1]));
             feature.setSymbol(polySymbolRed);
           }
           else if (f == 1) {
             var polySymbolGreen = new SimpleFillSymbol();
             polySymbolGreen.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
                 new Color([0, 0, 0, 0.5]), 1));
-            polySymbolGreen.setColor(new Color([0, 255, 0, 0.7]));
+            polySymbolGreen.setColor(new Color([102,204,255, 1]));
             feature.setSymbol(polySymbolGreen);
           }
           else if (f == 2) {
             var polySymbolBlue = new SimpleFillSymbol();
             polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
-            polySymbolBlue.setColor(new Color([0, 0, 255, 0.7]));
+            polySymbolBlue.setColor(new Color([102,127,255, 1]));
             feature.setSymbol(polySymbolBlue);
+          }
+          else if (f == 3) {
+            var polySymbolBlue = new SimpleFillSymbol();
+            polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
+            polySymbolBlue.setColor(new Color([153,102,255, 1]));
+            feature.setSymbol(polySymbolBlue);  
           }
           map.graphics.add(feature);
         }
