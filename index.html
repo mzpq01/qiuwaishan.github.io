@@ -1,94 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-             
-    
-                <meta charset="utf-8"/>
-<title>riyadhgo</title>
-<meta name="fb_admins_meta_tag" content=""/>
-<link rel="shortcut icon" href="http://www.wix.com/favicon.ico" type="image/x-icon"/>
-<link rel="apple-touch-icon" href="http://www.wix.com/favicon.ico" type="image/x-icon"/>
-    <meta http-equiv="X-Wix-Renderer-Server" content="app204.vae.aws"/>
-<meta http-equiv="X-Wix-Meta-Site-Id" content="7a7b0362-8f38-4555-b1f4-eb6d7add97c0"/>
-<meta http-equiv="X-Wix-Application-Instance-Id" content="44f182ce-4040-4fe4-9338-e8ff9b07b034"/>
-<meta http-equiv="X-Wix-Published-Version" content="3"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
 
-<meta http-equiv="etag" content="b3b79d34a2596adab61ec43a8b003d5c"/>
-<meta property="og:title" content="riyadhgo"/>
-<meta property="og:type" content="article"/>
-<meta property="og:url" content="http://qiuwaishan.wix.com/riyadhgo"/>
-<meta property="og:site_name" content="riyadhgo"/>
-<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE"/>
+  <title>Service Area Task</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
+  <style>
+    html, body, #mapDiv {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
 
-<meta id="wixMobileViewport" name="viewport" content="minimum-scale=0.25, maximum-scale=1.2"/>
+    #info {
+      bottom: 20px;
+      color: #444;
+      height: auto;
+      font-family: arial, sans-serif;
+      left: 20px;
+      margin: 5px;
+      padding: 10px;
+      position: absolute;
+      text-align: left;
+      width: 200px;
+      z-index: 40;
+    }
+  </style>
 
+  <script src="https://js.arcgis.com/3.16/"></script>
+  <script>
+    require([
+      "esri/Color",
+      "esri/map",
+      "esri/graphic",
+      "esri/graphicsUtils",
+      "esri/tasks/Geoprocessor",
+      "esri/tasks/FeatureSet",
+      "esri/symbols/SimpleMarkerSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/symbols/SimpleFillSymbol"
+    ], function(Color, Map, Graphic, graphicsUtils, Geoprocessor, FeatureSet, SimpleMarkerSymbol, SimpleLineSymbol,
+                SimpleFillSymbol) {
 
-        
+      var map, gp;
+      var driveTimes = "5 10 15";
 
-    <script>
-            // BEAT MESSAGE
-    try {
-        window.wixBiSession = {
-            initialTimestamp : Date.now(),
-            viewerSessionId: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c)
-                    { var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8); return v.toString(16); }
-            )
-        };
-        (new Image()).src = 'http://frog.wix.com/bt?src=29&evid=3&pn=1&et=1&v=3.0&vsi=' + wixBiSession.viewerSessionId +
-                '&url=' + encodeURIComponent(location.href.replace(/^http(s)?:\/\/(www\.)?/, '')) +
-                '&isp=0&st=2&ts=0&c=' + wixBiSession.initialTimestamp;
-    } catch (e){}
-    // BEAT MESSAGE END
-</script>
+      // Initialize map, GP and image params
+      map = new Map("mapDiv", {
+        basemap: "streets",
+        center: [-95.255, 38.96],
+        zoom: 12
+      });
 
-    
+      gp = new Geoprocessor("https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
+      gp.setOutputSpatialReference({wkid: 102100});
+      map.on("click", computeServiceArea);
 
-    <!-- META DATA -->
-<script type="text/javascript">
+      function computeServiceArea(evt) {
+        map.graphics.clear();
+        var pointSymbol = new SimpleMarkerSymbol();
+        pointSymbol.setOutline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 1);
+        pointSymbol.setSize(14);
+        pointSymbol.setColor(new Color([0, 255, 0, 0.25]));
 
-    var serviceTopology = {"serverName":"app204.vae.aws","cacheKillerVersion":"1","staticServerUrl":"http://static.parastorage.com/","usersScriptsRoot":"http://static.parastorage.com/services/wix-users/2.604.0","biServerUrl":"http://frog.wix.com/","userServerUrl":"http://users.wix.com/","billingServerUrl":"http://premium.wix.com/","mediaRootUrl":"http://static.wixstatic.com/","logServerUrl":"http://frog.wix.com/plebs","monitoringServerUrl":"http://TODO/","usersClientApiUrl":"https://users.wix.com/wix-users","publicStaticBaseUri":"http://static.parastorage.com/services/wix-public/1.185.0","basePublicUrl":"http://www.wix.com/","postLoginUrl":"http://www.wix.com/my-account","postSignUpUrl":"http://www.wix.com/new/account","baseDomain":"wix.com","staticMediaUrl":"https://static.wixstatic.com/media","staticAudioUrl":"https://media.wix.com/mp3","emailServer":"http://assets.wix.com/common-services/notification/invoke","blobUrl":"https://static.parastorage.com/wix_blob","htmlEditorUrl":"http://editor.wix.com/html","siteMembersUrl":"https://users.wix.com/wix-sm","scriptsLocationMap":{"wixapps":"https://static.parastorage.com/services/wixapps/2.484.0","tpa":"https://static.parastorage.com/services/tpa/2.1062.0","santa-resources":"https://static.parastorage.com/services/santa-resources/1.2.0","wix-code-sdk":"https://static.parastorage.com/services/js-wixcode-sdk/1.7.0","bootstrap":"https://static.parastorage.com/services/bootstrap/2.1229.49","ck-editor":"https://static.parastorage.com/services/ck-editor/1.87.3","it":"https://static.parastorage.com/services/experiments/it/1.37.0","santa":"https://static.parastorage.com/services/santa/1.1254.17","skins":"https://static.parastorage.com/services/skins/2.1229.49","core":"https://static.parastorage.com/services/core/2.1229.49","sitemembers":"https://static.parastorage.com/services/sm-js-sdk/1.31.0","automation":"https://static.parastorage.com/services/automation/1.23.0","web":"https://static.parastorage.com/services/web/2.1229.49","ecommerce":"https://static.parastorage.com/services/ecommerce/1.203.0","hotfixes":"https://static.parastorage.com/services/experiments/hotfixes/1.15.0","langs":"https://static.parastorage.com/services/langs/2.568.0","santa-versions":"https://static.parastorage.com/services/santa-versions/1.419.0","ut":"https://static.parastorage.com/services/experiments/ut/1.2.0"},"developerMode":false,"productionMode":true,"staticServerFallbackUrl":"https://sslstatic.wix.com/","staticVideoUrl":"http://video.wixstatic.com/","scriptsDomainUrl":"https://static.parastorage.com/","userFilesUrl":"http://static.parastorage.com/","staticHTMLComponentUrl":"http://qiuwaishan.wix.com.usrfiles.com/","secured":false,"ecommerceCheckoutUrl":"https://www.safer-checkout.com/","premiumServerUrl":"https://premium.wix.com/","appRepoUrl":"http://assets.wix.com/wix-lists-ds-webapp","digitalGoodsServerUrl":"http://dgs.wixapps.net/","wixCloudBaseDomain":"wix-code.com","mailServiceSuffix":"/_api/common-services/notification/invoke","staticVideoHeadRequestUrl":"http://storage.googleapis.com/video.wixstatic.com","protectedPageResolverUrl":"https://site-pages.wix.com/_api/wix-public-html-info-webapp/resolve_protected_page_urls","publicStaticsUrl":"http://static.parastorage.com/services/wix-public/1.185.0","staticDocsUrl":"http://media.wix.com/ugd"};
-    var santaModels = true;
-    var rendererModel = {"metaSiteId":"7a7b0362-8f38-4555-b1f4-eb6d7add97c0","siteInfo":{"documentType":"UGC","applicationType":"HtmlWeb","siteId":"44f182ce-4040-4fe4-9338-e8ff9b07b034","siteTitleSEO":"riyadhgo"},"clientSpecMap":{"13":{"type":"sitemembers","applicationId":13,"collectionType":"Open","smcollectionId":"716d25b5-30ef-4946-a3ff-88c6c28ccff7","smtoken":"8b540239bc7f32a9d6401987cb02e80812f6123a0380e43e34395c95ccb7aa2ca94a197b1bf3ef11d805520aa1b6c1370c17898916e5e2c7e791e030ed374cbcb6206722b5518d8d3e5ee8059866818d1e51c824c84c9af6d91464c1a4766d78"},"2":{"type":"appbuilder","applicationId":2,"appDefinitionId":"3d590cbc-4907-4cc4-b0b1-ddf2c5edf297","instanceId":"143ef363-8b50-7db1-cc29-fbbe5a816e57","state":"Initialized"}},"premiumFeatures":[],"geo":"USA","languageCode":"en","previewMode":false,"userId":"822c8524-75a8-419c-9609-a8124072b7c7","siteMetaData":{"preloader":{"enabled":false},"adaptiveMobileOn":true,"quickActions":{"socialLinks":[],"colorScheme":"dark","configuration":{"quickActionsMenuEnabled":false,"navigationMenuEnabled":true,"phoneEnabled":false,"emailEnabled":false,"addressEnabled":false,"socialLinksEnabled":false}},"contactInfo":{"companyName":"","phone":"","fax":"","email":"","address":""}},"runningExperiments":{"sv_allowEditingGaps":"new","anchorsMenuAutoColor":"new","actionsBehaviors":"new","sv_exp171":"new","sv_blogCleanExcerptStyles":"new","sv_passwordPages":"new","fixGsapRaf":"new","improvedImageZoom":"new","sv_blogCategories":"new","sv_removeLoginByGuid":"new","sv_appFlows":"new","mobileAppBannerOnMobile":"new","sv_blogVideoThumbnail":"new","sv_dontShowGalleryLink":"new"},"urlFormatModel":{"format":"hashBang","forbiddenPageUriSEOs":["app","apps","_api","robots.txt","sitemap.xml","feed.xml","sites"],"pageIdToResolvedUriSEO":{}},"passwordProtectedPages":[]};
-    var publicModel = {"domain":"wix.com","externalBaseUrl":"http:\/\/qiuwaishan.wix.com\/riyadhgo","unicodeExternalBaseUrl":"http:\/\/qiuwaishan.wix.com\/riyadhgo","pageList":{"masterPage":["https:\/\/static.wixstatic.com\/sites\/822c85_d85fa9a3b8a4c579907de32d8aa6c70e_2.json.z?v=3","https:\/\/staticorigin.wixstatic.com\/sites\/822c85_d85fa9a3b8a4c579907de32d8aa6c70e_2.json.z?v=3","https:\/\/fallback.wix.com\/wix-html-editor-pages-webapp\/page\/822c85_d85fa9a3b8a4c579907de32d8aa6c70e_2.json"],"pages":[{"pageId":"c17u2","title":"Home","pageUriSEO":"home","urls":["https:\/\/static.wixstatic.com\/sites\/822c85_399df568c856545581b31677cc7737f9_2.json.z?v=3","https:\/\/staticorigin.wixstatic.com\/sites\/822c85_399df568c856545581b31677cc7737f9_2.json.z?v=3","https:\/\/fallback.wix.com\/wix-html-editor-pages-webapp\/page\/822c85_399df568c856545581b31677cc7737f9_2.json"]},{"pageId":"c1p8","title":"Project Page","pageUriSEO":"project-page","urls":["https:\/\/static.wixstatic.com\/sites\/822c85_6d97dd7053a46a3d5ab4638692996860_1.json.z?v=3","https:\/\/staticorigin.wixstatic.com\/sites\/822c85_6d97dd7053a46a3d5ab4638692996860_1.json.z?v=3","https:\/\/fallback.wix.com\/wix-html-editor-pages-webapp\/page\/822c85_6d97dd7053a46a3d5ab4638692996860_1.json"]},{"pageId":"cxas","title":"About","pageUriSEO":"about","urls":["https:\/\/static.wixstatic.com\/sites\/822c85_58721c1e501623481fa41b4daf8a39f8_1.json.z?v=3","https:\/\/staticorigin.wixstatic.com\/sites\/822c85_58721c1e501623481fa41b4daf8a39f8_1.json.z?v=3","https:\/\/fallback.wix.com\/wix-html-editor-pages-webapp\/page\/822c85_58721c1e501623481fa41b4daf8a39f8_1.json"]},{"pageId":"cjrx","title":"CV","pageUriSEO":"cv","urls":["https:\/\/static.wixstatic.com\/sites\/822c85_4542179fc8b3b4bfdf69c3e961931c4b_1.json.z?v=3","https:\/\/staticorigin.wixstatic.com\/sites\/822c85_4542179fc8b3b4bfdf69c3e961931c4b_1.json.z?v=3","https:\/\/fallback.wix.com\/wix-html-editor-pages-webapp\/page\/822c85_4542179fc8b3b4bfdf69c3e961931c4b_1.json"]}],"mainPageId":"c17u2"},"timeSincePublish":12655,"favicon":"","deviceInfo":{"deviceType":"Desktop","browserType":"Chrome","browserVersion":48},"siteRevision":3};
+        var graphic = new Graphic(evt.mapPoint, pointSymbol);
+        map.graphics.add(graphic);
 
+        var features = [];
+        features.push(graphic);
+        var featureSet = new FeatureSet();
+        featureSet.features = features;
+        var params = { "Input_Location": featureSet, "Drive_Times": driveTimes };
+        gp.execute(params, getDriveTimePolys);
+      }
 
-    var googleAnalytics = "UA-2117194-61"
-    ;
-
-    var googleRemarketing = "";
-    var facebookRemarketing = "";
-    var yandexMetrika = "";
-
-</script>
-
-
-
-            <meta name="fragment" content="!"/>
-    
-    <!-- DATA -->
-<script type="text/javascript">
-    var adData = {"topLabel":"<span class=\"smallMusa\">(Wix-Logo) </span>Create a <span class=\"smallLogo\">Wix</span> site!","topContent":"100s of templates<br />No coding needed<br /><span class=\"emphasis spacer\">Start now >></span>","footerLabel":"<div class=\"adFootBox\"><div class=\"siteBanner\" ><div class=\"siteBanner\"><div class=\"wrapper\"><div class=\"bigMusa\">(Wix Logo)</div><div class=\"txt shd\" style=\"color:#fff\">This site was created using </div> <div class=\"txt shd\"><a  href=\"http://www.wix.com?utm_campaign=vir_wixad_live&experiment_id=abtestbanner122400001\" style=\"color:#fff\"> WIX.com. </a></div> <div class=\"txt shd\" style=\"color:#fff\"> Create your own for FREE <span class=\"emphasis\"> >></span></div></div></div></div></div>","adUrl":"http://www.wix.com/lpviral/enviral?utm_campaign=vir_wixad_live&experiment_id=abtestbanner122400001"};
-    var mobileAdData = {"footerLabel":"7c3dbd_67131d7bd570478689be752141d4e28a.jpg","adUrl":"http://www.wix.com?utm_campaign=vir_wixad_live&experiment_id=abtestbanner122400001"};
-    var usersDomain = "https://users.wix.com/wix-users";
-        </script>
-
-            <script type="text/javascript">
-    var santaBase = 'https://static.parastorage.com/services/santa/1.1254.17';
-        var clientSideRender = true;
-    </script>
-<script src="https://static.parastorage.com/services/third-party/requirejs/2.1.15/require.min.js"></script>
-<script src="https://static.parastorage.com/services/santa/1.1254.17/app/main-r.min.js"></script>
-<link rel="stylesheet" href="https://static.parastorage.com/services/santa/1.1254.17/static/css/viewer.css">
-
+      function getDriveTimePolys(results, messages) {
+        var features = results[0].value.features;
+        // add drive time polygons to the map
+        for (var f = 0, fl = features.length; f < fl; f++) {
+          var feature = features[f];
+          if (f === 0) {
+            var polySymbolRed = new SimpleFillSymbol();
+            polySymbolRed.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
+            polySymbolRed.setColor(new Color([255, 0, 0, 0.7]));
+            feature.setSymbol(polySymbolRed);
+          }
+          else if (f == 1) {
+            var polySymbolGreen = new SimpleFillSymbol();
+            polySymbolGreen.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                new Color([0, 0, 0, 0.5]), 1));
+            polySymbolGreen.setColor(new Color([0, 255, 0, 0.7]));
+            feature.setSymbol(polySymbolGreen);
+          }
+          else if (f == 2) {
+            var polySymbolBlue = new SimpleFillSymbol();
+            polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
+            polySymbolBlue.setColor(new Color([0, 0, 255, 0.7]));
+            feature.setSymbol(polySymbolBlue);
+          }
+          map.graphics.add(feature);
+        }
+        // get the extent for the drive time polygon graphics and
+        // zoom to the extent of the drive time polygons
+        map.setExtent(graphicsUtils.graphicsExtent(map.graphics.graphics), true);
+      }
+    });
+  </script>
 </head>
 <body>
-        <div id="SITE_CONTAINER"></div>
-
-<!-- No Footer -->
-    
-    
-        
-    
+  <div id="mapDiv"></div>
+  <div id="info" class="esriSimpleSlider">
+    Click the map to use a Geoprocessing(GP) task to generate and zoom to drive time polygons. The drive time polygons
+    are 1, 2, and 3 minutes.
+  </div>
 </body>
 </html>
