@@ -85,26 +85,26 @@
           if (f === 0) {
             var polySymbolRed = new SimpleFillSymbol();
             polySymbolRed.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
-            polySymbolRed.setColor(new Color([102,255,230, 1]));
+            polySymbolRed.setColor(new Color([102,255,230, 0.8]));
             feature.setSymbol(polySymbolRed);
           }
           else if (f == 1) {
             var polySymbolGreen = new SimpleFillSymbol();
             polySymbolGreen.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
                 new Color([0, 0, 0, 0.5]), 1));
-            polySymbolGreen.setColor(new Color([102,204,255, 1]));
+            polySymbolGreen.setColor(new Color([102,204,255, 0.8]));
             feature.setSymbol(polySymbolGreen);
           }
           else if (f == 2) {
             var polySymbolBlue = new SimpleFillSymbol();
             polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
-            polySymbolBlue.setColor(new Color([102,127,255, 1]));
+            polySymbolBlue.setColor(new Color([102,127,255, 0.8]));
             feature.setSymbol(polySymbolBlue);
           }
           else if (f == 3) {
             var polySymbolBlue = new SimpleFillSymbol();
             polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
-            polySymbolBlue.setColor(new Color([153,102,255, 1]));
+            polySymbolBlue.setColor(new Color([153,102,255, 0.8]));
             feature.setSymbol(polySymbolBlue);  
           }
           map.graphics.add(feature);
