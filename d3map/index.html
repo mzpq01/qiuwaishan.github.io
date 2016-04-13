@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+  .my-legend .legend-title {
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 90%;
+    }
+  .my-legend .legend-scale ul {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    }
+  .my-legend .legend-scale ul li {
+    display: block;
+    float: left;
+    width: 50px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-size: 80%;
+    list-style: none;
+    }
+  .my-legend ul.legend-labels li span {
+    display: block;
+    float: left;
+    height: 15px;
+    width: 50px;
+    }
+  .my-legend .legend-source {
+    font-size: 70%;
+    color: #999;
+    clear: both;
+    }
+  .my-legend a {
+    color: #777;
+    }
+</style>
+<body>
+<div class='my-legend'>
+<div class='legend-title'>People without Healthcare in United States 2014 (Millions)</div>
+<div class='legend-scale'>
+  <ul class='legend-labels'>
+    <li><span style='background:#edf8fb;'></span>0 - 0.4M</li>
+    <li><span style='background:#b2e2e2;'></span>0.8M</li>
+    <li><span style='background:#66c2a4;'></span>1.2M</li>
+    <li><span style='background:#2ca25f;'></span>1.6M</li>
+    <li><span style='background:#006d2c;'></span>2.0M</li>
+  </ul>
+</div>
+<div class='legend-source'>Source: <a href="http://bl.ocks.org/mbostock/3306362">Threshold Choropleth</a></div>
+</div>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/queue.v1.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+
+var color = d3.scale.log()
+    .domain([2064765, 7])
+    .range(["#006d2c", "#edf8fb"]);
+
+var path = d3.geo.path();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+queue()
+    .defer(d3.json, "data/us.json")
+    .defer(d3.csv, "health_care_2014.csv")
+    .await(ready);
+
+function ready(error, us, health_care_2014) {
+  if (error) throw error;
+
+  var rateById = {};
+
+  health_care_2014.forEach(function(d) { 
+    rateById[d.id] = +d.no_hc; });
+
+  svg.append("g")
+      .attr("class", "counties")
+    .selectAll("path")
+      .data(topojson.feature(us, us.objects.counties).features)
+    .enter().append("path")
+      .attr("d", path)
+      .style("fill", function(d) { 
+        // console.log(d)
+        // console.log(color(rateById[d.id]))
+        return color(rateById[d.id]); 
+      });
+
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a.id !== b.id; }))
+      .attr("class", "states")
+      .attr("d", path);
+}
+
+</script>
