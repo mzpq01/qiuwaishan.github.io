@@ -44,6 +44,7 @@
     color: #777;
     }
 </style>
+
 <body>
 <div class='my-legend'>
 <div class='legend-title'>People without Healthcare in United States 2014 (Millions)</div>
@@ -78,7 +79,7 @@ var svg = d3.select("body").append("svg")
 
 queue()
     .defer(d3.json, "data/us.json")
-    .defer(d3.csv, "health_care_2014.csv")
+    .defer(d3.csv, "data/health_care_2014.csv")
     .await(ready);
 
 function ready(error, us, health_care_2014) {
@@ -96,8 +97,7 @@ function ready(error, us, health_care_2014) {
     .enter().append("path")
       .attr("d", path)
       .style("fill", function(d) { 
-        // console.log(d)
-        // console.log(color(rateById[d.id]))
+
         return color(rateById[d.id]); 
       });
 
