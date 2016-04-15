@@ -46,12 +46,13 @@
          
         // Listen for a click event on the Map element
         map.on('click', onMapClick);
+
         // load GeoJSON from an external file
-		$.getJSON("data/nodes1.geojson",function(data){
+		$.getJSON("data/links1.geojson",function(data){
 		    // add GeoJSON layer to the map once the file is loaded
 		    L.geoJson(data,{
 				onEachFeature: function (feature, layer) {
-					layer.bindPopup(feature.properties.name);
+					layer.bindPopup("coordinates");
 				}
 			}).addTo(map);
 		});
