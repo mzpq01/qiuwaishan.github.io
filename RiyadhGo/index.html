@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Leaflet Map</title>
+	<title>Riyadh GO</title>
 	<!-- External Stylesheets -->
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 </head>
 <body>
 	<!-- Our web map and content will go here -->
-	<div id="map" style="width: 900px; height: 600px"></div>
+	<div id="map" style="width: 1980px; height: 1040px"></div>
 	<!-- Add the Leaflet JavaScript library -->
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -17,22 +17,23 @@
     	// Add OpenStreetMap tile layer to map element
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
 		// Create point feature for Kendall Square T Station
-		var myDataPoint = L.marker([24.719850, 46.723307]).addTo(map);
+		//var myDataPoint = L.marker([24.719850, 46.723307]).addTo(map);
 		// Create line feature for Mass Ave Bridge, style and add to map
-		var myDataLine = L.polyline([[24.719850, 46.723307], [24.522714, 46.830326]],
-			{color: 'red', weight: 10}).addTo(map);
+		////var myDataLine = L.polyline([[24.719850, 46.723307], [24.522714, 46.830326]],
+			////{color: 'red', weight: 10}).addTo(map);
 		// Create area feature for MIT, style and add to map
-		var myArea = L.polygon([[24.719850, 46.723307], [24.522714, 46.830326],
-		    [24.610561, 46.602206], [24.810431, 46.593417]], 
-		    {color: 'blue', weight: 4}).addTo(map);
+		////var myArea = L.polygon([[24.719850, 46.723307], [24.522714, 46.830326],
+		    ////[24.610561, 46.602206], [24.810431, 46.593417]], 
+		    ////{color: 'blue', weight: 4}).addTo(map);
         // Bind popup to data point object
-        myDataPoint.bindPopup("<h3>Kendall Square</h3><p>Cambridge, MA<br>Information about Kendall Square.</p>");
+        ////myDataPoint.bindPopup("<h3>Startbuck</h3><p>Riyadh<br>Checking Amounts.</p>");
         
         // Bind popup to line object
-        myDataLine.bindPopup("Mass Ave Bridge");
+        ////myDataLine.bindPopup("Mass Ave Bridge");
         
         // Bind popup to area object
-        myArea.bindPopup("MIT Campus");
+        ////myArea.bindPopup("MIT Campus");
+        
         // Create an Empty Popup
         var popup = L.popup();
          
@@ -48,7 +49,7 @@
         map.on('click', onMapClick);
 
         // load GeoJSON from an external file
-		$.getJSON("data/links1.geojson",function(data){
+		$.getJSON("data/5000nodes.geojson",function(data){
 		    // add GeoJSON layer to the map once the file is loaded
 		    L.geoJson(data,{
 				onEachFeature: function (feature, layer) {
