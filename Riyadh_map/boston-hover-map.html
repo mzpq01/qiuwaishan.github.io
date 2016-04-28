@@ -6,26 +6,26 @@
     <script src="data/boston_rodents.json"></script>
     <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <style>
-body {
-    position: absolute;
-    font-family: "Proxima Nova", "Montserrat", sans-serif;
-}
-h1, h2 {
-    position: absolute;
-    left: 10px;
-    font-size: 1.3em;
-    font-weight: 100;
-}
-h2 {
-    top: 30px;
-    font-size: 1em;
-}
-.incident {
-    fill: steelblue;
-}
-.hover {
-    fill: yellow;   
-}
+        body {
+            position: absolute;
+            font-family: "Proxima Nova", "Montserrat", sans-serif;
+        }
+        h1, h2 {
+            position: absolute;
+            left: 10px;
+            font-size: 1.3em;
+            font-weight: 100;
+        }
+        h2 {
+            top: 30px;
+            font-size: 1em;
+        }
+        .incident {
+            fill: red;
+        }
+        .hover {
+            fill: yellow;   
+        }
     </style>
 </head>
 <body>
@@ -44,8 +44,8 @@ h2 {
 
     var albersProjection = d3.geo.albers()
         .scale( 190000 )
-        .rotate( [-46.731123,0] )
-        .center( [0, 24.722561,] )
+        .rotate( [71.057,0] )
+        .center( [0, 42.313] )
         .translate( [width/2,height/2] );
 
     var geoPath = d3.geo.path()
@@ -58,6 +58,7 @@ h2 {
         .attr( "fill", "#ccc" )
         .attr( "stroke", "#333")
         .attr( "d", geoPath );
+     
 
     var rodents = svg.append( "g" );
 
