@@ -10,25 +10,26 @@
             position: center;
             font-family: "Proxima Nova", "Montserrat", sans-serif;
         }
-        h1, h2, h4 {
+        h1, h2, h3, h4 {
             position: center;
             left: 10px;
             font-size: 1.5em;
             font-weight: 100;
         }
         h2 {
-            top: 30px;
+            top: 10px;
             font-size: 1.2em;
         }
         h3 {
             position: absolute;
-            top: 80px;
-            left: 200px;
+            top: 75px;
+            left: 300px;
             font-size: 1em;
         }
         h4 {
             position: absolute;
-            top: 75px;           
+            top: 68px;
+            left: 150px;                       
             font-size: 1em;
         }
         .hover {
@@ -48,7 +49,7 @@
     <h2> Road Volume over Capacity through a Typical Day </h2>
     <h3></h3> 
     <h4> The traffic volume is: </h4> 
-    <div id="sliderContainer"> <!-- This is a slider -->
+    <div id="sliderContainer"> <!-- a slider -->
         <input id="timeslide" type="range" min="0" max="3" value="0" step="1"/><br>
         <span id="range">Morning</span>
     </div>
@@ -59,7 +60,6 @@
 
     var inputValue = null
     var timeofday = ["Morning","Midday","Evening","Rest of Day"]
-
 
     var svg = d3.select( "body" )
         .append( "svg" )
@@ -82,14 +82,35 @@
         .enter()
         .append( "path" )
         .attr( "fill", "#ffffff")
-        .attr( "stroke", "#666666")
-        .attr("stroke-width", function(x) {return (x.properties.voc_md * 5);}) // here we need to replace 1 with properties.voc_md value
+        .attr( "stroke", "blue")
+        .attr("stroke-width", function (x) {
+            if (inputValue =="Morning"){
+                return x.properties.voc_am *3
+            } else if (inputValue == "Midday"){
+                return x.properties.voc_md *3
+            } else if (inputValue == "Evening"){
+                return x.properties.voc_pm * 3
+            } else {
+                return x.properties.voc_rd * 3
+            }
+        }) // here we need to replace 1 with properties.voc_md value
         .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
         .attr("class","incident")
         .on("mouseover", function(d){
-            d3.select("h3").text(d.properties.voc_md);
+            if (inputValue =="Morning"){
+                 d3.select("h3").text(d.properties.voc_am);
             d3.select(this).attr("class","incident hover");
-        })
+            } else if (inputValue == "Midday"){
+                 d3.select("h3").text(d.properties.voc_md);
+            d3.select(this).attr("class","incident hover");
+            } else if (inputValue == "Evening"){
+                 d3.select("h3").text(d.properties.voc_pm);
+            d3.select(this).attr("class","incident hover");
+            } else {
+                 d3.select("h3").text(d.properties.voc_rd);
+            d3.select(this).attr("class","incident hover");
+            }
+        })       
         .on("mouseout", function(d){
             d3.select("h3").text("");
             d3.select(this).attr("class","incident");
@@ -99,14 +120,43 @@
     d3.select("#timeslide").on("input", function() {
         update(+this.value);
     });
-
-    // update the fill of each SVG of class "incident" with value
+    
+    // update the fill of each SVG of class "incident"
     function update(value) {
         document.getElementById("range").innerHTML=timeofday[value];
         inputValue = timeofday[value];
         d3.selectAll(".incident")
-            .attr("fill", dateMatch);
+            .attr("stroke", dateMatch)
+            .attr("stroke-width", function (x) {
+            if (inputValue =="Morning"){
+                return x.properties.voc_am *3
+            } else if (inputValue == "Midday"){
+                return x.properties.voc_md *3
+            } else if (inputValue == "Evening"){
+                return x.properties.voc_pm * 3
+            } else {
+                return x.properties.voc_rd * 3
+            }
+        })
     }
+    function dateMatch(data, value) {       
+        if (inputValue == "Morning") {
+            return "blue";
+        } else if (inputValue == "Midday") {
+            return "red";
+        } else if (inputValue == "Evening"){
+            return "orange";
+        } else {
+            return "purple"
+        }
+    } 
+
+    function initialDate(m,i){
+        if (inputValue == "Morning") {
+            this.parentElement.appendChild(this);
+            return "blue";
+        } 
+    }      
     </script>
 </body>
 </html>
