@@ -3,7 +3,7 @@
 <head>
     <title>Riyadh_VOC</title>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="data/riyadh_traffic.json"></script> <!-- read data from json file -->
+    <script src="data/riyadh_traffic.json"></script>
     <link href="css/main.css" rel="stylesheet" />
     <style>
         body {
@@ -83,30 +83,9 @@
         .append( "path" )
         .attr( "fill", "#ffffff")
         .attr( "stroke", "#666666")
-        .attr("stroke-width", function(x) {return (x.properties.voc_md * 2);}) // here we need to replace 1 with properties.voc_md value
+        .attr("stroke-width", (d.properties.voc_md)*100)
         .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
-        .attr("class","incident")
-        .on("mouseover", function(d){
-            d3.select("h3").text(d.properties.voc_md);
-            d3.select(this).attr("class","incident hover");
-        })
-        .on("mouseout", function(d){
-            d3.select("h3").text("");
-            d3.select(this).attr("class","incident");
-        });
-
-    // when the input range changes update the value 
-    d3.select("#timeslide").on("input", function() {
-        update(+this.value);
-    });
-
-    // update the fill of each SVG of class "incident" with value
-    function update(value) {
-        document.getElementById("range").innerHTML=timeofday[value];
-        inputValue = timeofday[value];
-        d3.selectAll(".incident")
-            .attr("fill", dateMatch);
-    }
+   
     </script>
 </body>
 </html>
