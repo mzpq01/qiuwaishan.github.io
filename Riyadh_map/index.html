@@ -83,7 +83,7 @@
         .append( "path" )
         .attr( "fill", "#ffffff")
         .attr( "stroke", "#666666")
-        .attr("stroke-width", function(x) {return (x.properties.voc_md * 2);}) // here we need to replace 1 with properties.voc_md value
+        .attr("stroke-width", function(x) {return (x.properties.voc_md * 5);}) // here we need to replace 1 with properties.voc_md value
         .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
         .attr("class","incident")
         .on("mouseover", function(d){
