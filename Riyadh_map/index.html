@@ -7,39 +7,42 @@
     <link href="css/main.css" rel="stylesheet" />
     <style>
         body {
-            position: center;
+            position: absolute;
             font-family: "Proxima Nova", "Montserrat", sans-serif;
         }
-        h1, h2, h3, h4 {
-            position: center;
+        h1, h2, h3, h4, span {
+            position: absolute;
             left: 10px;
-            font-size: 1.5em;
+            font-size: 0.6em;
             font-weight: 100;
         }
+        h1 {
+            font-size: 2em;
+        }
+
         h2 {
-            top: 10px;
-            font-size: 1.2em;
+            top: 40px;
+            font-size: 1.5em;
         }
         h3 {
             position: absolute;
-            top: 75px;
-            left: 300px;
+            top: 85px;
+            left: 160px;
             font-size: 1em;
         }
         h4 {
             position: absolute;
-            top: 68px;
-            left: 150px;                       
+            top: 80px;                      
             font-size: 1em;
         }
         .hover {
             stroke: red;
-            stroke-width: 5;   
+            stroke-width: 10;   
         }
         #sliderContainer {
-            text-align: center;
-            position: relative;
-            top: 700px;
+            text-align: absolute;
+            position: absolute;
+            top: 125px;
 }
     </style>
 </head>
@@ -55,8 +58,8 @@
     </div>
 
     <script>
-    var width = 600;
-    var height = 600;
+    var width = 700;
+    var height = 900;
 
     var inputValue = null
     var timeofday = ["Morning","Midday","Evening","Rest of Day"]
@@ -69,9 +72,9 @@
     var g = svg.append( "g" );
 
     var albersProjection = d3.geo.albers()
-        .scale( 50000 )
+        .scale( 90000 )
         .rotate( [-46.731,0] )
-        .center( [0, 24.780] )
+        .center( [0, 24.680] )
         .translate( [width/2,height/2] );
 
     var geoPath = d3.geo.path()
