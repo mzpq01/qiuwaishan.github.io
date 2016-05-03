@@ -1,0 +1,254 @@
+
+<html>
+<head>
+    <title>Riyadh_VOC</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <!-- read data from json file -->
+    <script src="data/json/checkin.json"></script>
+    <script src="data/json/riyadh_traffic.json"></script>    
+    <!-- read data from json file -->
+    <script src="data/json/446.json"></script>
+    <script src="data/json/746.json"></script>
+    <script src="data/json/1062.json"></script>
+    <script src="data/json/1274.json"></script>
+
+
+    <link href="css/main.css" rel="stylesheet" />
+    <style>
+        body {
+            position: absolute;
+            font-family: "Proxima Nova", "Montserrat", sans-serif;
+        }
+        h1, h2, h3, h4, span {
+            position: absolute;
+            left: 10px;
+            font-size: 0.6em;
+            font-weight: 100;
+        }
+        h1 {
+            font-size: 2em;
+        }
+
+        h2 {
+            top: 40px;
+            font-size: 1.5em;
+        }
+        h3 {
+            position: absolute;
+            top: 85px;
+            left: 160px;
+            font-size: 1em;
+        }
+        h4 {
+            position: absolute;
+            top: 80px;                      
+            font-size: 1em;
+        }
+        .hover {
+            fill: yellow;
+            stroke: black;
+            stroke-width: 1;   
+        }
+        #sliderContainer {
+            text-align: absolute;
+            position: absolute;
+            top: 125px;
+        }
+        #sliderContainer2 {
+            text-align: absolute;
+            position: absolute;
+            top: 500px;
+        }   
+    </style>
+</head>
+
+<body>
+    <h1> Riyadh Traffic Flows </h1>
+    <h2> Road Volume over Capacity through a Typical Day </h2>
+    <h3></h3> 
+    <h4> The traffic volume is: </h4> 
+    <div id="sliderContainer"> <!-- a slider -->
+        <input id="timeslide" type="range" min="0" max="3" value="0" step="1"/><br>
+        <span id="range">Morning</span>
+    </div>
+    <div id="sliderContainer2"> <!-- a slider -->
+        <input id="timeslide2" type="range" min="0" max="3" value="0" step="1"/><br>
+        <span id="range2">node_446</span>
+    </div>
+
+    <script>
+    var width = 900;
+    var height = 1200;
+
+    var inputValue = null
+    var timeofday = ["Morning","Midday","Evening","Rest of Day"]
+
+    var inputValue2 = null
+    var node = ["node_446","node_746","node_1062","node_1274"]
+
+    var svg = d3.select( "body" )
+        .append( "svg" )
+        .attr('class', 'road_network')
+        .attr( "width", width )
+        .attr( "height", height );
+
+    var albersProjection = d3.geo.albers()
+        .scale( 85000 )
+        .rotate( [-46.731,0] )
+        .center( [0, 24.680] )
+        .translate( [width/2,height/2] );
+
+    var geoPath = d3.geo.path()
+        .projection( albersProjection );
+
+    var g = svg.append( "g" )
+        .attr('class', 'voc_network');
+
+    g.selectAll( "path" )
+        .data( traffic_json.features )
+        .enter()
+        .append( "path" )
+        .attr( "fill", "#ffffff")
+        .attr( "stroke", "#3b5998")
+        .attr("stroke-width", function (x) {
+            if (inputValue =="Morning"){
+                return x.properties.voc_am *3
+            } else if (inputValue == "Midday"){
+                return x.properties.voc_md *3
+            } else if (inputValue == "Evening"){
+                return x.properties.voc_pm * 3
+            } else {
+                return x.properties.voc_rd * 3
+            }
+        })
+        .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
+        .attr("class","incident")
+        .on("mouseover", function(d){
+            if (inputValue =="Morning"){
+                 d3.select("h3").text(d.properties.voc_am);
+            d3.select(this).attr("class","incident hover");
+            } else if (inputValue == "Midday"){
+                 d3.select("h3").text(d.properties.voc_md);
+            d3.select(this).attr("class","incident hover");
+            } else if (inputValue == "Evening"){
+                 d3.select("h3").text(d.properties.voc_pm);
+            d3.select(this).attr("class","incident hover");
+            } else {
+                 d3.select("h3").text(d.properties.voc_rd);
+            d3.select(this).attr("class","incident hover");
+            }
+        })       
+        .on("mouseout", function(d){
+            d3.select("h3").text("");
+            d3.select(this).attr("class","incident");
+        });
+
+    // when the input range changes update the value 
+    d3.select("#timeslide").on("input", function() {
+        update(+this.value);
+    });
+    
+    // update the fill of each SVG of class "incident"
+    function update(value) {
+        document.getElementById("range").innerHTML=timeofday[value];
+        inputValue = timeofday[value];
+        g.selectAll(".incident")
+            .attr("stroke", dateMatch)
+            .attr("stroke-width", function (x) {
+            if (inputValue =="Morning"){
+                return x.properties.voc_am *3
+            } else if (inputValue == "Midday"){
+                return x.properties.voc_md *3
+            } else if (inputValue == "Evening"){
+                return x.properties.voc_pm * 3
+            } else {
+                return x.properties.voc_rd * 3
+            }
+        })
+    }
+    function dateMatch(data, value) {       
+        if (inputValue == "Morning") {
+            return "#3b5998";
+        } else if (inputValue == "Midday") {
+            return "#8b0a50";
+        } else if (inputValue == "Evening"){
+            return "#106271";
+        } else {
+            return "#36384c"
+        }
+    }
+
+    var check_in = svg.append( "g" )
+        .attr('class','FSQ_checkin');
+    check_in.selectAll( "path" )
+        .data( checkin.features )
+        .enter()
+        .append( "path" )
+        .attr( "fill", "#d54339" )
+        .attr( "stroke", "#d54339" )
+        .attr( "d", geoPath )
+        .attr("class","incident")
+        .attr("stroke-width", function(x) {return (x.properties.checkin*0.0003);})
+        .on("mouseover", function(d){
+            d3.select("h2").text(d.properties.category);
+            d3.select(this).attr("class","incident hover");
+        })
+        .on("mouseout", function(d){
+            d3.select("h2").text("");
+            d3.select(this).attr("class","incident");
+        });  
+
+    // when the input2 range changes update the value 
+    d3.select("#timeslide2").on("input", function() {
+        update2(+this.value);
+    }); 
+    // update the fill of each SVG of class "incident"
+    function update2(value) {
+        document.getElementById("range2").innerHTML=node[value];
+        inputValue2 = node[value];
+        d3.select("#Shortest_Path").remove();
+        var current_paths = svg.append( "g" )
+            .attr('id','Shortest_Path');
+        current_paths.selectAll(".incident")
+            .data(  
+                function (x) {
+                    if (inputValue2 =="node_446"){
+                        return node_446.features;        
+                    } else if (inputValue2 == "node_746"){
+                        return node_746.features;
+                    } else if (inputValue2 == "node_1062"){
+                        return node_1062.features;
+                    } else {
+                        return node_1274.features;
+                    }
+                })  
+            .enter()
+            .append( "path" )
+            .attr( "fill", "#900" )
+            .attr( "stroke", "#c8a780" )
+            .attr( "d", geoPath )
+            .attr("class","incident")
+            .attr("stroke-width", function(x) {return (10/x.properties.sum_time + 0.5);})
+            .attr("stroke", function (x) {
+                if (inputValue2 =="node_446"){
+                    return "#3b5998";
+                } else if (inputValue2 == "node_746"){
+                    return "#8b0a50";
+                } else if (inputValue2 == "node_1062"){
+                    return "#3b5998";
+                } else {
+                    return "#8b0a50";
+                }
+            })
+            .on("mouseover", function(d){
+                d3.select("h2").text(d.properties.sum_time);
+                d3.select(this).attr("class","incident hover");
+            })
+            .on("mouseout", function(d){
+                d3.select("h2").text("");
+                d3.select(this).attr("class","incident");
+            });
+    }   
+    </script>
+</body>
+</html>

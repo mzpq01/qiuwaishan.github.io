@@ -1,8 +1,0 @@
-{"type":"FeatureCollection", "features": [
-{"geometry": {"type": "Point", "coordinates": [46.849302248324101, 24.701475446932697]},"type":"Feature"},
-{"type":"Feature","geometry": {"type": "LineString", "coordinates": [[46.849302248324101, 24.701475446932697], [46.8484666275181, 24.7029460895643]]}}, 
-{"type":"Feature","geometry": {"type": "LineString", "coordinates": [[46.849302248324101, 24.701475446932697], [46.85675402773721, 24.704945115988497]]}}, 
-{"type":"Feature","geometry": {"type": "LineString", "coordinates": [[46.8484666275181, 24.7029460895643], [46.849302248324101, 24.701475446932697]]}}, 
-{"type":"Feature","geometry": {"type": "Point", "coordinates": [46.8484666275181, 24.7029460895643]}}, 
-{"type":"Feature","geometry": {"type": "LineString", "coordinates": [[46.8484666275181, 24.7029460895643], [46.849302248324101, 24.701475446932697], [46.85675402773721, 24.704945115988497]]}}
-]}

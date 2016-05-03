@@ -1,0 +1,104 @@
+
+<html>
+<head>
+    <title>Riyadh Test Map</title>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="data/json/7601.json"></script>
+    <script src="data/json/fsq_checkin.json"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <style>
+    body {
+        position: absolute;
+        font-family: "Proxima Nova", "Montserrat", sans-serif;
+    }
+    h1, h2 {
+        position: absolute;
+        left: 10px;
+        font-size: 1.3em;
+        font-weight: 100;
+    }
+    h2 {
+        top: 30px;
+        font-size: 1em;
+    }
+    .incident {
+        fill: red;
+    }
+    .hover {
+        fill: yellow;   
+    }
+
+</style>
+</head>
+<body>
+    <h1>Riyadh Go</h1>
+    <h2></h2>
+    <div id="map" style="width: 1920px; height: 1024px"></div>
+
+    <script type="text/javascript">
+    
+        var map = L.map('map').setView([24.702850, 46.783307], 12);
+        mapLink = 
+            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; ' + mapLink + ' Contributors',
+            maxZoom: 18,
+            }).addTo(map);
+                
+    /* Initialize the SVG layer */
+    map._initPathRoot()    
+    /* We simply pick up the SVG from the map object */
+    var svg = d3.select("#map").select("svg"),
+    g = svg.append("g");
+    
+    d3.json("data/json/fsq_checkin.json", function(collection) {
+        /* Add a LatLng object to each item in the dataset */
+        checkin.features.forEach(function(d) {
+            d.LatLng = new L.LatLng(d.geometry.coordinates[1],
+                                    d.geometry.coordinates[0])
+        })
+        
+        var feature = g.selectAll("circle")
+            .data(checkin.features)
+            .enter().append("circle")
+            .style("stroke", "black")  
+            .style("opacity", .8) 
+            .style("fill", "red")
+            .attr("r", function(x) {return (x.properties.checkin)*0.0005;});  
+        
+        map.on("viewreset", update);
+        update();
+        function update() {
+            feature.attr("transform", 
+            function(d) { 
+                return "translate("+ 
+                    map.latLngToLayerPoint(d.LatLng).x +","+ 
+                    map.latLngToLayerPoint(d.LatLng).y +")";
+                }
+            )
+        }
+    })           
+    // var albersProjection = d3.geo.albers()
+    //     .scale( 150000 )
+    //     .rotate( [-46.731,0] )
+    //     .center( [0, 24.680])
+    //     .translate( [width/2,height/2] );
+
+    // var geoPath = d3.geo.path()
+    //     .projection( albersProjection );
+
+    // g.selectAll( "path" )
+    //     .data( shortest_path.features )
+    //     .enter()
+    //     .append( "path" )
+    //     .attr( "fill", "#ccc" )
+    //     .attr( "stroke", "#333")
+    //     .attr("stroke-width", function(x) {return (6/x.properties.sum_time);})
+    //     .attr( "d", geoPath );
+
+    </script>
+</body>
+</html>
