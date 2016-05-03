@@ -112,13 +112,13 @@
         .attr( "stroke", "#3b5998")
         .attr("stroke-width", function (x) {
             if (inputValue =="Morning"){
-                return x.properties.voc_am *3
+                return x.properties.voc_am *0.5
             } else if (inputValue == "Midday"){
-                return x.properties.voc_md *3
+                return x.properties.voc_md *0.5
             } else if (inputValue == "Evening"){
-                return x.properties.voc_pm * 3
+                return x.properties.voc_pm * 0.5
             } else {
-                return x.properties.voc_rd * 3
+                return x.properties.voc_rd * 0.5
             }
         })
         .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
@@ -178,17 +178,26 @@
         }
     }
 
+    var color = d3.scale.threshold()
+        .domain([10, 1000, 10000, 50000, 95000])
+        .range(["#54278f","#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1"]);
+
+    var color2 = d3.scale.threshold()
+        .domain([1, 2, 5, 10, 30])
+        .range(["#009688", "#32ab9f", "#66c0b7", "#99d5cf", "#cceae7", "#0b5e56"]);
+
     var check_in = svg.append( "g" )
         .attr('class','FSQ_checkin');
     check_in.selectAll( "path" )
         .data( checkin.features )
         .enter()
         .append( "path" )
-        .attr( "fill", "#d54339" )
-        .attr( "stroke", "#d54339" )
+        .attr( "fill", "#d7b936" )
+        .attr( "stroke", "#d7b936" )
         .attr( "d", geoPath )
         .attr("class","incident")
-        .attr("stroke-width", function(x) {return (x.properties.checkin*0.0003);})
+        .attr("stroke-width", function(x) {return (x.properties.checkin*0.0002);})
+        .style("fill", function(d) { return color(d.properties.checkin);})
         .on("mouseover", function(d){
             d3.select("h2").text(d.properties.category);
             d3.select(this).attr("class","incident hover");
@@ -228,7 +237,7 @@
             .attr( "stroke", "#c8a780" )
             .attr( "d", geoPath )
             .attr("class","incident")
-            .attr("stroke-width", function(x) {return (10/x.properties.sum_time + 0.5);})
+            .attr("stroke-width", function(x) {return (10/x.properties.sum_time + 0.1);})
             .attr("stroke", function (x) {
                 if (inputValue2 =="node_446"){
                     return "#3b5998";
@@ -240,6 +249,7 @@
                     return "#8b0a50";
                 }
             })
+            .style("stroke", function(d) { return color2(d.properties.sum_time);})
             .on("mouseover", function(d){
                 d3.select("h2").text(d.properties.sum_time);
                 d3.select(this).attr("class","incident hover");
