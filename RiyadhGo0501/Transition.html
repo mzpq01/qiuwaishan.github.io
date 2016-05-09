@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>I'm Learning D3</title>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <style>
+    button {
+      position: absolute;
+      margin-left: 6px;
+      margin-top: 6px;
+    }
+
+  svg {
+    background: yellow;
+  }
+  </style>
+</head>
+<body>
+  <H1> Transition Test </H1>
+  <button id="start">Transition</button>
+  <button id="reset" style="margin-left: 82px">Reset</button>
+  <!-- Location for page elements. -->
+<script>
+
+  var width = 600,
+      height = 600,
+      scale0 = (width - 1) / 5 / Math.PI;
+
+  var projection = d3.geo.mercator();
+
+  var zoom = d3.behavior.zoom()
+      .translate([width / 2, height / 2])
+      .scale(scale0)
+      .scaleExtent([scale0, 1 * scale0])
+      .on("zoom", zoomed);
+
+  var path = d3.geo.path()
+      .projection(projection);
+
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g");
+
+  var g = svg.append("g");
+
+  svg
+      .call(zoom)
+      .call(zoom.event);
+   
+  // Draw the Rectangle
+  var rectangle = svg.append("rect")
+    .attr("x", 50)
+    .attr("y", 50)
+    .attr("width", 50)
+    .attr("height", 50);
+
+  d3.select("#start").on("click", function() {
+    rectangle
+      .transition()
+      .attr("x", 300)
+      .attr("fill", "red"); // New Position
+  });
+
+  d3.select("#reset").on("click", function() {
+    rectangle
+      .transition()
+      .attr("x", 50); // New Position
+  });
+
+  function zoomed() {
+    projection
+        .translate(zoom.translate())
+        .scale(zoom.scale());
+
+    d3.selectAll("path")
+        .attr("d", path);
+  }
+
+  d3.select(self.frameElement).style("height", height + "px");
+
+</script>
+</html>
