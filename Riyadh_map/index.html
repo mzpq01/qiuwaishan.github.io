@@ -199,7 +199,7 @@
         .attr("stroke-width", function(x) {return (x.properties.checkin*0.0002);})
         .style("fill", function(d) { return color(d.properties.checkin);})
         .on("mouseover", function(d){
-            d3.select("h2").text(d.properties.category);
+            d3.select("h2").text(d.properties.closest_node);
             d3.select(this).attr("class","incident hover");
         })
         .on("mouseout", function(d){
