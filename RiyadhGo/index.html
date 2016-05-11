@@ -72,31 +72,65 @@
     <h2> CLICK to explore your travel cost from Riyadh Hotspopts </h2>
     <h3> </h3> 
     <h4> TIME OF DAY </h4> 
-    <h5> TIME OR MONEY </h4> 
+    <h5> TYPE OF COST </h4> 
     <div id="sliderContainer"> <!-- a slider -->
         <input id="timeslide" type="range" min="0" max="3" value="0" step="1"/><br>
         <span id="range">Morning</span>
     </div>
     <div id="sliderContainer2"> <!-- a slider -->
-        <input id="timeslide2" type="range" min="0" max="1" value="0" step="1"/><br>
-        <span id="range2">Time Cost</span>
+        <input id="timeslide2" type="range" min="0" max="2" value="0" step="1"/><br>
+        <span id="range2">Money</span>
     </div>
 
     <script>
     // console.log(all_json);
     var width = 900;
-    var height = 1200;
+    var height = 1600;
 
     var inputValue2 = null
 
     var albersProjection = d3.geo.albers()
-        .scale( 85000 )
+        .scale( 100000 )
         .rotate( [-46.731,0] )
-        .center( [0, 24.680] )
+        .center( [0, 24.580] )
         .translate( [width/2,height/2] );
  
     var geoPath = d3.geo.path()
         .projection( albersProjection );
+
+
+    var inputValue = null
+    var timeofday = ["Morning","Midday","Evening","Rest of Day"]
+    var inputValue2 = null
+    var typeofcost = ["Money","Time","Distance"]
+
+    var color_roads = d3.scale.linear()
+        .domain([0, 0.5, 4])
+        .range(["#dadaeb", "#bcbddc","#9e9ac8"]);
+
+    var color_gradient = d3.scale.linear()
+        .domain([4, 20, 36])
+        .range(['#88d8b0', '#ffcc5c','#ff6f69']);
+
+    var color_checkin = d3.scale.threshold()
+        .domain([10, 1000, 10000, 30000, 60000, 95000])
+        .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
+
+    var color_checkin_warm = d3.scale.threshold()
+        .domain([10, 1000, 10000, 30000, 95000])
+        .range(["#dc6900", "#eb8c00 ", "#e0301e", "#a32020", "#602320"]);
+
+    var color_time = d3.scale.threshold()
+        .domain([0, 5, 10, 20, 30])
+        .range(["#a8e6cf", "#dcedc1", "#ffd3b6", "#ffaaa5", "#ff8b94"]);
+
+    var color_dist = d3.scale.threshold()
+        .domain([0, 1, 5, 10, 20])
+        .range(["#83d0c9", "#65c3ba", "#54b2a9", "#35a79c", "#009688"]);
+
+    var color_money = d3.scale.threshold()
+        .domain([1, 5, 10, 15, 20])
+        .range(["#96ceb4", "88d8b0", "ffeead", "ffcc5c", "ff6f69"]);
 
     var svg = d3.select( "body" )
         .append( "svg" )
@@ -104,86 +138,70 @@
         .attr( "width", width )
         .attr( "height", height );
 
-    var g = svg.append( "g" )
-        .attr('class', 'voc_network');
-    g.selectAll( "path" )
-        .data( traffic_json.features )
-        .enter()
-        .append( "path" )
-        .attr( "fill", "#ffffff")
-        .attr( "stroke", "#3b5998")
-        .attr("stroke-width", function (x) {           
-                return x.properties.voc_am *0.5+0.05
-        })
-        .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
-        .attr("class","incident")
-        .on("mouseover", function(d){
-            if (inputValue =="Morning"){
-                 d3.select("h3").text(d.properties.voc_am);
-            d3.select(this).attr("class","incident hover");
-            } else if (inputValue == "Midday"){
-                 d3.select("h3").text(d.properties.voc_md);
-            d3.select(this).attr("class","incident hover");
-            } else if (inputValue == "Evening"){
-                 d3.select("h3").text(d.properties.voc_pm);
-            d3.select(this).attr("class","incident hover");
-            } else {
-                 d3.select("h3").text(d.properties.voc_rd);
-            d3.select(this).attr("class","incident hover");
-            }
-        })       
-        .on("mouseout", function(d){
-            d3.select("h3").text("");
-            d3.select(this).attr("class","incident");
-        });
-
-    var inputValue = null
-    var timeofday = ["Morning","Midday","Evening","Rest of Day"]
-    // when the input range changes update the value 
+    // Slider#1 when the input range changes update the value 
     d3.select("#timeslide").on("input", function() {
-        update(+this.value);
-    });    
+        update_slider1(+this.value);
+    });
     // update the fill of each SVG of class "incident"
-    function update(value) {
+    function update_slider1(value) {
         document.getElementById("range").innerHTML=timeofday[value];
         inputValue = timeofday[value];
-        g.selectAll(".incident")
-            .attr("stroke", dateMatch)
+        d3.select(".voc_network").remove();
+        var city_network = svg.append( "g" )
+            .attr('class', 'voc_network');
+        city_network.selectAll( "path" )
+            .data( traffic_json.features )
+            .enter()
+            .append( "path" )
+            .attr("stroke", "white")
+            .attr("fill", "white")
+            .attr("stroke-width",0)
+            .transition()
+            .duration(3000)
+            .attr("stroke", function (x) {
+                if (inputValue =="Morning"){
+                    return color_roads(x.properties.voc_am)
+                } else if (inputValue == "Midday"){
+                    return color_roads(x.properties.voc_md)
+                } else if (inputValue == "Evening"){
+                    return color_roads(x.properties.voc_pm)
+                } else {
+                    return color_roads(x.properties.voc_rd)
+                }
+            })
             .attr("stroke-width", function (x) {
-            if (inputValue =="Morning"){
-                return x.properties.voc_am *0.5
-            } else if (inputValue == "Midday"){
-                return x.properties.voc_md *0.5
-            } else if (inputValue == "Evening"){
-                return x.properties.voc_pm * 0.5
-            } else {
-                return x.properties.voc_rd * 0.5
-            }
-        })
+                if (inputValue =="Morning"){
+                    return x.properties.voc_am *1.2+0.1
+                } else if (inputValue == "Midday"){
+                    return x.properties.voc_md *1.2+0.1
+                } else if (inputValue == "Evening"){
+                    return x.properties.voc_pm *1.2+0.1
+                } else {
+                    return x.properties.voc_rd *1.2+0.1
+                }
+            })
+            .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
+            .attr("class","incident")
+            .on("mouseover", function(d){
+                if (inputValue =="Morning"){
+                     d3.select("h3").text(d.properties.voc_am);
+                d3.select(this).attr("class","incident hover");
+                } else if (inputValue == "Midday"){
+                     d3.select("h3").text(d.properties.voc_md);
+                d3.select(this).attr("class","incident hover");
+                } else if (inputValue == "Evening"){
+                     d3.select("h3").text(d.properties.voc_pm);
+                d3.select(this).attr("class","incident hover");
+                } else {
+                     d3.select("h3").text(d.properties.voc_rd);
+                d3.select(this).attr("class","incident hover");
+                }
+            })       
+            .on("mouseout", function(d){
+                d3.select("h3").text("");
+                d3.select(this).attr("class","incident");
+            });
     }
-    function dateMatch() {       
-        if (inputValue == "Morning") {
-            return "#3b5998";
-        } else if (inputValue == "Midday") {
-            return "#8b0a50";
-        } else if (inputValue == "Evening"){
-            return "#106271";
-        } else {
-            return "#36384c"
-        }
-    }
-
-    var color_checkin = d3.scale.threshold()
-        .domain([10, 1000, 10000, 50000, 95000])
-        .range(["#54278f","#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1"]);
-
-    var shortest_color = d3.scale.threshold()
-        .domain([1, 2, 5, 10, 30])
-        .range(["#009688", "#32ab9f", "#66c0b7", "#99d5cf", "#cceae7", "#0b5e56"]);
-
-    var shortest_color2 = d3.scale.threshold()
-        .domain([1, 5, 10, 15, 20])
-        .range(["#0b5e56", "#cceae7", "#99d5cf", "#66c0b7", "#32ab9f", "#009688"]);
 
     var check_in = svg.append( "g" )
         .attr('class','FSQ_checkin');
@@ -191,10 +209,10 @@
         .data( checkin.features )
         .enter()
         .append( "path" )
-        .attr( "fill", "#d7b936" )
         .attr( "stroke", "#d7b936" )
         .attr( "d", geoPath )
         .attr("class","incident")
+        .attr("opacity", 0.9)
         .attr("stroke-width", function(x) {return (x.properties.checkin*0.00005+0.05);})
         .attr("fill", function(x) { return color_checkin(x.properties.checkin);})
         .on("mouseover", function(x){
@@ -210,28 +228,78 @@
             d3.select(".Shortest_Path").remove();
             create_shortpath(node_id);
         });
-
     function create_shortpath(node_id) {
         // console.log(all_json[node_id])
+        // Slider#2 when the input range changes update the value 
+        var read_data = null
+        d3.select("#timeslide2").on("input", function() {
+            update_slider2(+this.value);
+        });
+        function update_slider2(value) {
+            document.getElementById("range2").innerHTML=typeofcost[value];
+            inputValue2 = typeofcost[value];
+        }
         var current_paths = svg.append( "g" )
             .attr('class','Shortest_Path'); //"id" can be change to whatever for example "class", but if it is not "id", it cannot be selected by d3.select().romove
-        current_paths.selectAll(".incident")
-            .data(all_json[node_id].features)  
-            .enter()
-            .append( "path" )
-            .attr("stroke", "white")
-            .attr("fill", "white")
-            .attr("stroke-width",0.1)
-            .transition()
-            .duration(2000)
-            .attr( "fill", "#900" )
-            .attr( "stroke", "#c8a780" )
-            .attr( "d", geoPath ) 
-            .attr("class","incident")
-            .attr("stroke-width", function(x) {return (x.properties.sum_time/6 + 0.1);})
-            .attr("stroke", function(d) { return shortest_color2(d.properties.sum_time);})
+        if (inputValue2 == "Distance") {
+            current_paths.selectAll(".incident")
+                .data(all_json[node_id].features)  
+                .enter()
+                .append( "path" )
+                .attr("stroke", "white")
+                .attr("fill", "white")
+                .attr("stroke-width",0.1)
+                .transition()
+                .duration(2000)
+                .attr( "fill", "#900" )
+                .attr( "stroke", typeMatch )
+                .attr( "d", geoPath ) 
+                .attr("class","incident")
+                .attr("stroke", function(d) { return color_dist(d.properties.sum_dist);})
+                .attr("stroke-width", function(x) {return (x.properties.sum_dist*0.2);});
+        } else if (inputValue2 == "Time") {
+            current_paths.selectAll(".incident")
+                .data(all_json[node_id].features)  
+                .enter()
+                .append( "path" )
+                .attr("stroke", "white")
+                .attr("fill", "white")
+                .attr("stroke-width",0.1)
+                .transition()
+                .duration(2000)
+                .attr( "fill", "#900" )
+                .attr( "stroke", typeMatch )
+                .attr( "d", geoPath ) 
+                .attr("class","incident")
+                .attr("stroke", function(d) { return color_time(d.properties.sum_time);})
+                .attr("stroke-width", function(x) {return (x.properties.sum_time*0.2);});
+        } else {
+            current_paths.selectAll(".incident")
+                .data(all_json[node_id].features)  
+                .enter()
+                .append( "path" )
+                .attr("stroke", "white")
+                .attr("fill", "white")
+                .attr("stroke-width",0.1)
+                .transition()
+                .duration(2000)
+                .attr( "fill", "#900" )
+                .attr( "stroke", typeMatch )
+                .attr( "d", geoPath ) 
+                .attr("class","incident")
+                .attr("stroke", function(d) { return color_gradient(4+0.35*d.properties.sum_time+1.05*d.properties.sum_dist);})
+                .attr("stroke-width", function(x) {return ((4+0.35*x.properties.sum_time+1.05*x.properties.sum_dist)*0.15+0.05);})
+        }
+        function typeMatch() {       
+            if (inputValue2 == "Time") {
+                return "red";
+            } else if (inputValue2 == "Distance") {
+                return "orange";
+            } else {
+                return "blue"
+            }
+        }      
     }
-
     </script>
 </body>
 </html>
