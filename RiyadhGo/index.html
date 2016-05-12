@@ -10,9 +10,8 @@
     <link href="css/main.css" rel="stylesheet" />
     <style>
         .hover {
-            fill: yellow;
-            stroke: "#feaa37";
-            stroke-width: 1;   
+            fill: red;
+            stroke: red;  
         }
         #sliderContainer2 {
             text-align: absolute;
@@ -59,11 +58,11 @@
         .domain([4, 20, 36])
         .range(['#88d8b0', '#ffcc5c','#ff6f69']);
     var color_checkin = d3.scale.threshold()
-        .domain([10, 1000, 10000, 30000, 60000, 95000])
-        .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
+        .domain([10, 10000, 35000, 70000, 95000])
+        .range(["#e2f4c7", "#eae374", "#f9d62e", "#fc913a", "#ff4e50"]);
     var color_checkin_warm = d3.scale.threshold()
-        .domain([10, 1000, 10000, 30000, 95000])
-        .range(["#dc6900", "#eb8c00 ", "#e0301e", "#a32020", "#602320"]);
+        .domain([10, 5000, 20000, 50000, 70000, 95000])
+        .range(["#dc6900", "#eb8c00 ", "#eeba30","#e0301e", "#a32020", "#602320"]);
     var color_time = d3.scale.threshold()
         .domain([0, 5, 10, 20, 30])
         .range(["#a8e6cf", "#dcedc1", "#ffd3b6", "#ffaaa5", "#ff8b94"]);
@@ -98,7 +97,7 @@
         .append( "path" )
         .attr("fill","none")
         .attr("stroke", function (x) { return color_roads(x.properties.voc_md)})
-        .attr("stroke-width", function (x) {return x.properties.voc_md *1.5+0.2})
+        .attr("stroke-width", function (x) {return x.properties.voc_md *0.9+0.3})
         .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
         .attr("class","incident");
     d3.select("#On").on("click", function() {
@@ -115,12 +114,13 @@
             .duration(1500)
             .attr("fill","none")
             .attr("stroke", function (x) { return color_roads(x.properties.voc_md)})
-            .attr("stroke-width", function (x) {return x.properties.voc_md *1.5+0.2})
+            .attr("stroke-width", function (x) {return x.properties.voc_md *0.9+0.3})
             .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
             .attr("class","incident");
     })
     d3.select("#Off").on("click", function() {
         d3.select(".RiyadhVoc").remove();
+        d3.select(".Shortest_Path").remove();
     })
     var check_in = svg.append( "g" )
         .attr('class','FSQ_checkin');
@@ -128,13 +128,12 @@
         .data( checkin.features )
         .enter()
         .append( "path" )
-        .attr( "stroke", "#d7b936" )
+        .attr( "stroke", function(x) { return color_checkin_warm(x.properties.checkin);})
         .attr( "d", geoPath )
         .attr("class","incident")
-        .attr("opacity", 0.9)
-        .attr("r",10)
-        .attr("stroke-width", function(x) {return (x.properties.checkin*0.00005+0.05);})
-        .attr("fill", function(x) { return color_checkin(x.properties.checkin);})
+        .attr("opacity", 0.7)
+        .attr("stroke-width", function(x) {return (x.properties.checkin*0.0002+0.1);})
+        .attr("fill", function(x) { return color_checkin_warm(x.properties.checkin);})
         .on("mouseover", function(d){
             tooltip.style("visibility", "visible").text(d.properties.category+" | CHECKINs: " +d.properties.checkin);
             d3.select(this).attr("class","incident hover");
@@ -181,13 +180,16 @@
                 .attr("stroke", "white")
                 .attr("fill", "none")
                 .attr("stroke-width",0.1)
-                .on("mouseover", function(x){
-                    d3.select("h3").text("Distance Travel to Here: "+x.properties.sum_dist+" KM");
-                    d3.select(this).attr("class","incident2 hover");
+                .on("mouseover", function(d){
+                    d3.select("h3").text("Distance Travel to Here: "+d.properties.sum_dist+" KM");
+                    tooltip.style("visibility", "visible").text("Time(Minutes):" +d.properties.sum_time+" | "+"Money(SAD)"+Math.round((4+0.35*d.properties.sum_time+1.05*d.properties.sum_dist)*100)/100);
                 })
+                .on("mousemove", function(d){
+                    tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px").text("Time(Minutes):" +d.properties.sum_time+" | "+"Money(SAD)"+Math.round((4+0.35*d.properties.sum_time+1.05*d.properties.sum_dist)*100)/100);
+                })                
                 .on("mouseout", function(d){
                     d3.select("h3").text("");
-                    d3.select(this).attr("class","incident2")
+                    tooltip.style("visibility","hidden");
                 })
                 .transition()
                 .duration(2000)
@@ -205,13 +207,16 @@
                 .attr("stroke", "white")
                 .attr("fill", "none")
                 .attr("stroke-width",0.1)
-                .on("mouseover", function(x){
-                    d3.select("h3").text("Time Cost to Here by Taxi: "+x.properties.sum_time+" minutes");
-                    d3.select(this).attr("class","incident2 hover");
+                .on("mouseover", function(d){
+                    d3.select("h3").text("Time Cost to Here by Car: "+d.properties.sum_time+" minutes");
+                    tooltip.style("visibility", "visible").text("Distance(KM):" +d.properties.sum_dist+" | "+"Money(SAD)"+Math.round((4+0.35*d.properties.sum_time+1.05*d.properties.sum_dist)*100)/100);
+                })
+                .on("mousemove", function(d){
+                    tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px").text("Distance(KM):" +d.properties.sum_dist+" | "+"Money(SAD)"+Math.round((4+0.35*d.properties.sum_time+1.05*d.properties.sum_dist)*100)/100);
                 })
                 .on("mouseout", function(d){
                     d3.select("h3").text("");
-                    d3.select(this).attr("class","incident2")
+                    tooltip.style("visibility","hidden");
                 })
                 .transition()
                 .duration(2000)
@@ -230,7 +235,7 @@
                 .attr("fill", "none")
                 .attr("stroke-width",0)
                 .on("mouseover", function(d){
-                    d3.select("h3").text("Cost to Here by Uber: "+Math.round((4+0.35*d.properties.sum_time+1.05*d.properties.sum_dist)*100)/100+"SAD");
+                    d3.select("h3").text("Money Cost to Here by Uber: "+Math.round((4+0.35*d.properties.sum_time+1.05*d.properties.sum_dist)*100)/100+" SAD");
                     tooltip.style("visibility", "visible").text("Distance(KM): " +d.properties.sum_dist+"   "+"Time(Minutes) "+d.properties.sum_time);
                 })
                 .on("mousemove", function(d){
@@ -247,7 +252,8 @@
                 .attr("class","incident2")
                 .attr("stroke", function(d) { return color_gradient(4+0.35*d.properties.sum_time+1.05*d.properties.sum_dist);})
                 .attr("stroke-width", function(x) {return ((4+0.35*x.properties.sum_time+1.05*x.properties.sum_dist)*0.15+0.05);});
-        // Create SVG for Tooltip on Mouseover
+        }
+            // Create SVG for Tooltip on Mouseover
         var tooltip = d3.select("body")
             .append("div")
             .style("position", "absolute")
@@ -255,7 +261,6 @@
             .style("font-size", "12px")
             .style("z-index", "10")
             .style("visibility", "hidden")
-        }
     }
    
 </script>
