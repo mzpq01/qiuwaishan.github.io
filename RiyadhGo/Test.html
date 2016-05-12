@@ -21,24 +21,29 @@
         }   
     </style>
 </head>
+
 <body>
     <h1> RIYADH GO </h1>
     <h2> CLICK to explore your travel cost from Riyadh Hotspopts </h2>
     <h3> </h3> 
-    <h4> BASEMAP </h4> 
+    <h4> RIYADH BASEMAP </h4> 
     <h5> TYPE OF COST </h4> 
     <div id="sliderContainer2"> <!-- a slider -->
-        <input id="timeslide2" type="range" min="0" max="2" value="0" step="1"/><br>
-        <span id="range2">Money</span>
+        <input id="timeslide1" type="radio" name="range" value="0" checked/>Money
+        <input id="timeslide2" type="radio" name="range" value="1"/>Time
+        <input id="timeslide3" type="radio" name="range" value="2"/>Distance
+      <!--  <span id="range2">Money</span> -->
     </div>
-    <button id="On" style="position: absolute; margin-left: 6px; margin-top: 200px;">Peak Hour Traffic</button>
-    <button id="Off" style="position: absolute; margin-left: 116px; margin-top: 200px">Off</button>
+    <button id="Morning" style="position: absolute; margin-left: 6px; margin-top: 200px;">Morning</button>
+    <button id="Midday" style="position: absolute; margin-left: 70px; margin-top: 200px">Midday</button>
+    <button id="Evenning" style="position: absolute; margin-left: 129px; margin-top: 200px">Evenning</button>
+    <button id="RestofDay" style="position: absolute; margin-left: 197px; margin-top: 200px">Rest of Day</button>
+    <button id="ClearBasemap" style="position: absolute; margin-left: 280px; margin-top: 200px">Clear</button>
 
 <script>
-    // console.log(all_json);
-    var width = 1440;
-    var height = 900;
-    var scale0 = (width - 1) *200/ Math.PI;
+    var width = 1960;
+    var height = 1080;
+    var scale0 = (width - 1) *100/ Math.PI;
     var albersProjection = d3.geo.albers()
         .rotate( [-46.6706,0] )
         .center( [0, 24.7160] )
@@ -90,18 +95,25 @@
           .attr("d", geoPath);
     }
 
-    var city_network = svg.append( "g" )
-        .attr('class', 'RiyadhVoc');
-    city_network.selectAll( "path" )
-        .data( traffic_json.features )
-        .enter()
-        .append( "path" )
-        .attr("fill","none")
-        .attr("stroke", function (x) { return color_roads(x.properties.voc_md)})
-        .attr("stroke-width", function (x) {return x.properties.voc_md *1.5+0.2})
-        .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
-        .attr("class","incident");
-    d3.select("#On").on("click", function() {
+    d3.select("#Morning").on("click", function() {
+        d3.select(".RiyadhVoc").remove();
+        var city_network = svg.append( "g" )
+            .attr('class', 'RiyadhVoc');
+        city_network.selectAll( "path" )
+            .data( traffic_json.features )
+            .enter()
+            .append( "path" )
+            .attr("stroke", "white")
+            .attr("fill", "none")
+            .transition()
+            .duration(1500)
+            .attr("fill","none")
+            .attr("stroke", function (x) { return color_roads(x.properties.voc_am)})
+            .attr("stroke-width", function (x) {return x.properties.voc_am *1.5+0.2})
+            .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
+            .attr("class","incident");
+    })
+    d3.select("#Midday").on("click", function() {
         d3.select(".RiyadhVoc").remove();
         var city_network = svg.append( "g" )
             .attr('class', 'RiyadhVoc');
@@ -119,7 +131,43 @@
             .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
             .attr("class","incident");
     })
-    d3.select("#Off").on("click", function() {
+    d3.select("#Evenning").on("click", function() {
+        d3.select(".RiyadhVoc").remove();
+        var city_network = svg.append( "g" )
+            .attr('class', 'RiyadhVoc');
+        city_network.selectAll( "path" )
+            .data( traffic_json.features )
+            .enter()
+            .append( "path" )
+            .attr("stroke", "white")
+            .attr("fill", "none")
+            .transition()
+            .duration(1500)           
+            .attr("fill", "none")
+            .attr("stroke", function (x) { return color_roads(x.properties.voc_pm)})
+            .attr("stroke-width", function (x) {return x.properties.voc_pm *1.5+0.2})
+            .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
+            .attr("class","incident");
+    })
+    d3.select("#RestofDay").on("click", function() {
+        d3.select(".RiyadhVoc").remove();
+        var city_network = svg.append( "g" )
+            .attr('class', 'RiyadhVoc');
+        city_network.selectAll( "path" )
+            .data( traffic_json.features )
+            .enter()
+            .append( "path" )
+            .attr("stroke", "white")
+            .attr("fill", "none")
+            .transition()
+            .duration(1500)
+            .attr("fill", "none")
+            .attr("stroke", function (x) { return color_roads(x.properties.voc_rd)})
+            .attr("stroke-width", function (x) {return x.properties.voc_rd *1.5+0.2})
+            .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
+            .attr("class","incident");
+    })
+    d3.select("#ClearBasemap").on("click", function() {
         d3.select(".RiyadhVoc").remove();
     })
     var check_in = svg.append( "g" )
@@ -132,7 +180,6 @@
         .attr( "d", geoPath )
         .attr("class","incident")
         .attr("opacity", 0.9)
-        .attr("r",10)
         .attr("stroke-width", function(x) {return (x.properties.checkin*0.00005+0.05);})
         .attr("fill", function(x) { return color_checkin(x.properties.checkin);})
         .on("mouseover", function(d){
@@ -164,14 +211,24 @@
     function create_shortpath(node_id) {
         // console.log(all_json[node_id])
         // Slider#2 when the input range changes update the value 
-        d3.select("#timeslide2").on("input", function() {
+        var read_data = null
+        d3.select("#timeslide1").on("click", function() {
+			alert(this.value);
+            update_slider2(+this.value);
+        });
+        d3.select("#timeslide2").on("click", function() {
+			alert(this.value);
+            update_slider2(+this.value);
+        });
+        d3.select("#timeslide3").on("click", function() {
+			alert(this.value);
             update_slider2(+this.value);
         });
         function update_slider2(value) {
             document.getElementById("range2").innerHTML=typeofcost[value];
             inputValue2 = typeofcost[value];
         }
-        var current_paths = svg.append( "g" )
+        current_paths = svg.append( "g" )
             .attr('class','Shortest_Path'); //"id" can be change to whatever for example "class", but if it is not "id", it cannot be selected by d3.select().romove
         if (inputValue2 == "Distance") {
             current_paths.selectAll(".incident2")
@@ -254,7 +311,8 @@
             .style("font-family", "'Open Sans', sans-serif")
             .style("font-size", "12px")
             .style("z-index", "10")
-            .style("visibility", "hidden")
+            .style("visibility", "hidden");
+
         }
     }
    
