@@ -4,9 +4,9 @@
     <title>RiyadhGo</title>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <!-- read data from json file -->
-    <script src="data/json/fsq_checkin.json"></script>
-    <script src="data/json/all_nodes.json"></script>
-    <script src="data/json/riyadh_traffic.json"></script>    
+    <script src="data/json/some/fsq_checkin.json"></script>
+    <script src="data/json/some/all_nodes.json"></script>
+    <script src="data/json/some/riyadh_traffic.json"></script>    
     <!-- read data from json file -->
 <!--     <script src="data/json/446.json"></script>
     <script src="data/json/746.json"></script>
@@ -41,7 +41,7 @@
         }
         h4 {
             position: absolute;
-            top: 155px;                      
+            top: 160px;                      
             font-size: 1em;
         }
         h5 {
@@ -53,6 +53,11 @@
             fill: yellow;
             stroke: "#feaa37";
             stroke-width: 1;   
+        }
+        #sliderContainer {
+            text-align: absolute;
+            position: absolute;
+            top: 200px;
         }
         #sliderContainer2 {
             text-align: absolute;
@@ -66,59 +71,84 @@
     <h1> RIYADH GO </h1>
     <h2> CLICK to explore your travel cost from Riyadh Hotspopts </h2>
     <h3> </h3> 
-    <h4> RIYADH BASEMAP </h4> 
+    <h4> TIME OF DAY </h4> 
     <h5> TYPE OF COST </h4> 
+    <div id="sliderContainer"> <!-- a slider -->
+        <input id="timeslide" type="range" min="0" max="3" value="0" step="1"/><br>
+        <span id="range">Morning</span>
+    </div>
     <div id="sliderContainer2"> <!-- a slider -->
         <input id="timeslide2" type="range" min="0" max="2" value="0" step="1"/><br>
         <span id="range2">Money</span>
     </div>
-    <button id="Morning" style="position: absolute; margin-left: 6px; margin-top: 200px;">Morning</button>
-    <button id="Midday" style="position: absolute; margin-left: 70px; margin-top: 200px">Midday</button>
-    <button id="Evenning" style="position: absolute; margin-left: 129px; margin-top: 200px">Evenning</button>
-    <button id="RestofDay" style="position: absolute; margin-left: 197px; margin-top: 200px">Rest of Day</button>
-    <button id="ClearBasemap" style="position: absolute; margin-left: 280px; margin-top: 200px">Clear</button>
+    <button id="Time" style="position: absolute; margin-left: 6px; margin-top: 6px;">Time</button>
+    <button id="Money" style="position: absolute; margin-left: 150px; margin-top: 6px">Distance</button>
+    <button id="Distance" style="position: absolute; margin-left: 150px; margin-top: 6px">Money</button>
 
-<script>
+    <script>
     // console.log(all_json);
     var width = 900;
     var height = 1600;
+
+    var inputValue2 = null
+
     var albersProjection = d3.geo.albers()
         .scale( 100000 )
         .rotate( [-46.731,0] )
         .center( [0, 24.580] )
         .translate( [width/2,height/2] );
+ 
     var geoPath = d3.geo.path()
-        .projection( albersProjection );       
+        .projection( albersProjection );
+
+
+    var inputValue = null
+    var timeofday = ["Morning","Midday","Evening","Rest of Day"]
     var inputValue2 = null
     var typeofcost = ["Money","Time","Distance"]
+
     var color_roads = d3.scale.linear()
         .domain([0, 0.5, 4])
         .range(["#dadaeb", "#bcbddc","#9e9ac8"]);
+
     var color_gradient = d3.scale.linear()
         .domain([4, 20, 36])
         .range(['#88d8b0', '#ffcc5c','#ff6f69']);
+
     var color_checkin = d3.scale.threshold()
         .domain([10, 1000, 10000, 30000, 60000, 95000])
         .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
+
     var color_checkin_warm = d3.scale.threshold()
         .domain([10, 1000, 10000, 30000, 95000])
         .range(["#dc6900", "#eb8c00 ", "#e0301e", "#a32020", "#602320"]);
+
     var color_time = d3.scale.threshold()
         .domain([0, 5, 10, 20, 30])
         .range(["#a8e6cf", "#dcedc1", "#ffd3b6", "#ffaaa5", "#ff8b94"]);
+
     var color_dist = d3.scale.threshold()
         .domain([0, 1, 5, 10, 20])
         .range(["#83d0c9", "#65c3ba", "#54b2a9", "#35a79c", "#009688"]);
+
     var color_money = d3.scale.threshold()
         .domain([1, 5, 10, 15, 20])
         .range(["#96ceb4", "88d8b0", "ffeead", "ffcc5c", "ff6f69"]);
+
     var svg = d3.select( "body" )
         .append( "svg" )
         .attr('class', 'road_network')
         .attr( "width", width )
         .attr( "height", height );
-     
-    d3.select("#Morning").on("click", function() {
+
+    // Slider#1 when the input range changes update the value 
+    d3.select("#timeslide").on("input", function() {
+        create_RiyadhVoc(+this.value);
+    });
+    // update the fill of each SVG of class "incident"
+    function create_RiyadhVoc(value) {
+        document.getElementById("range").innerHTML=timeofday[value];
+        inputValue = timeofday[value];
         d3.select(".RiyadhVoc").remove();
         var city_network = svg.append( "g" )
             .attr('class', 'RiyadhVoc');
@@ -128,71 +158,34 @@
             .append( "path" )
             .attr("stroke", "white")
             .attr("fill", "none")
+            .attr("stroke-width",0)
             .transition()
-            .duration(1500)
-            .attr("fill","none")
-            .attr("stroke", function (x) { return color_roads(x.properties.voc_am)})
-            .attr("stroke-width", function (x) {return x.properties.voc_am *1.5+0.2})
+            .duration(3000)
+            .attr("stroke", function (x) {
+                if (inputValue =="Morning"){
+                    return color_roads(x.properties.voc_am)
+                } else if (inputValue == "Midday"){
+                    return color_roads(x.properties.voc_md)
+                } else if (inputValue == "Evening"){
+                    return color_roads(x.properties.voc_pm)
+                } else {
+                    return color_roads(x.properties.voc_rd)
+                }
+            })
+            .attr("stroke-width", function (x) {
+                if (inputValue =="Morning"){
+                    return x.properties.voc_am *1.2+0.1
+                } else if (inputValue == "Midday"){
+                    return x.properties.voc_md *1.2+0.1
+                } else if (inputValue == "Evening"){
+                    return x.properties.voc_pm *1.2+0.1
+                } else {
+                    return x.properties.voc_rd *1.2+0.1
+                }
+            })
             .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
             .attr("class","incident");
-    })
-    d3.select("#Midday").on("click", function() {
-        d3.select(".RiyadhVoc").remove();
-        var city_network = svg.append( "g" )
-            .attr('class', 'RiyadhVoc');
-        city_network.selectAll( "path" )
-            .data( traffic_json.features )
-            .enter()
-            .append( "path" )
-            .attr("stroke", "white")
-            .attr("fill", "none")
-            .transition()
-            .duration(1500)
-            .attr("fill","none")
-            .attr("stroke", function (x) { return color_roads(x.properties.voc_md)})
-            .attr("stroke-width", function (x) {return x.properties.voc_md *1.5+0.2})
-            .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
-            .attr("class","incident");
-    })
-    d3.select("#Evenning").on("click", function() {
-        d3.select(".RiyadhVoc").remove();
-        var city_network = svg.append( "g" )
-            .attr('class', 'RiyadhVoc');
-        city_network.selectAll( "path" )
-            .data( traffic_json.features )
-            .enter()
-            .append( "path" )
-            .attr("stroke", "white")
-            .attr("fill", "none")
-            .transition()
-            .duration(1500)           
-            .attr("fill", "none")
-            .attr("stroke", function (x) { return color_roads(x.properties.voc_pm)})
-            .attr("stroke-width", function (x) {return x.properties.voc_pm *1.5+0.2})
-            .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
-            .attr("class","incident");
-    })
-    d3.select("#RestofDay").on("click", function() {
-        d3.select(".RiyadhVoc").remove();
-        var city_network = svg.append( "g" )
-            .attr('class', 'RiyadhVoc');
-        city_network.selectAll( "path" )
-            .data( traffic_json.features )
-            .enter()
-            .append( "path" )
-            .attr("stroke", "white")
-            .attr("fill", "none")
-            .transition()
-            .duration(1500)
-            .attr("fill", "none")
-            .attr("stroke", function (x) { return color_roads(x.properties.voc_rd)})
-            .attr("stroke-width", function (x) {return x.properties.voc_rd *1.5+0.2})
-            .attr( "d", geoPath ) // "d" is D3.attribute stands for coordinates of a path
-            .attr("class","incident");
-    })
-    d3.select("#ClearBasemap").on("click", function() {
-        d3.select(".RiyadhVoc").remove();
-    })
+    }
     var check_in = svg.append( "g" )
         .attr('class','FSQ_checkin');
     check_in.selectAll( "path" )
@@ -331,6 +324,6 @@
 
     }
    
-</script>
+    </script>
 </body>
 </html>
