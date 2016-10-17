@@ -1,0 +1,163 @@
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        h1, h2, h3, h4, h5, span {
+            // position: absolute;
+            left: 10px;
+            font-size: 0.6em;
+            font-weight: 100;
+        }
+        h1 {
+            font-size: 2.4em;
+        }
+        h2 {
+            position: absolute;
+            top: 40px;
+            font-size: 1.2em;
+        }
+        h3 {
+            
+            top: 50px;
+            font-size: 1.2em;
+        }
+
+        .marker {
+            background-image: url('images/map-marker.png');
+            background-size: cover;
+            width: 10px;
+            height: 10px;
+            background-size: cover;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .mapboxgl-popup {
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1> DEVELOPING THE LITTORAL GRADIENT </h1>
+    <h2> THE SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP LAB ｜ 2015 SEED FUND</h2>
+    <h3> PI: BRENT RYAN, FADI MASAUD </h3>
+    <div id="map" style="min-height: 1040px;"></div>
+
+<script>
+// Define the Points marked by Marker
+var events = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Lingang New Town",
+        "url": "http://www.vagabondjourney.com/nanhui-ghost-city-china/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.921182, 30.899511 
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Event 2",
+        "url": "http://osmgeoweek.org/event/mapoff/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          107.797087,35.199904
+        ]
+      }
+    }
+  ]
+}
+
+// same token as the leaflet map
+mapboxgl.accessToken = 'pk.eyJ1IjoicWl1d2Fpc2hhbiIsImEiOiJjaWVsb3BicnYwMDJ6NHFrbnU2cHVncm56In0.XNz-KrnFme0pU8MdGtYShQ';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    //style: 'mapbox://styles/mapbox/light-v9', //stylesheet location
+    style: 'mapbox://styles/qiuwaishan/ciuaotk5q002u2ipiqdxmpcen',
+    center: [107.797087,35.199904], // starting position
+    zoom: 3 // starting zoom
+});
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
+// get events.geojson
+events.features.forEach(function(feature){
+  var popupHTML =  '<a target="_blank" class="popup" href="' + feature.properties.url + '">' 
+        + '<h3 class="text-center">' + feature.properties.title +'</h3></a>';
+
+  var markerHeight = 30;
+
+  // create the popup
+  var popup = new mapboxgl.Popup({offset: [0, markerHeight/2], closeButton: false })
+      .setHTML(popupHTML);
+
+  // create DOM element for the marker
+  var el = document.createElement('div');
+  el.className = 'marker'
+
+  // create the marker
+  new mapboxgl.Marker(el, {offset:[-markerHeight/2, -markerHeight/2]})
+      .setLngLat(feature.geometry.coordinates)
+      .setPopup(popup) // sets a popup on this marker
+      .addTo(map);
+});
+
+  map.on('load', function () {
+    map.addSource("points", {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [121.921182, 30.899511]
+                },
+                "properties": {
+                    "title": "Mapbox DC",
+                    "icon": "monument"
+                }
+            }, {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [-122.414, 37.776]
+                },
+                "properties": {
+                    "title": "Mapbox SF",
+                    "icon": "harbor"
+                }
+            }]
+        }
+    });
+
+    map.addLayer({
+        "id": "points",
+        "type": "symbol",
+        "source": "points",
+        "layout": {
+            "icon-image": "{icon}-15",
+            "text-field": "{title}",
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
+        }
+    });
+});
+</script>
+</body>
+</html>
