@@ -11,6 +11,7 @@
             left: 10px;
             font-size: 0.6em;
             font-weight: 100;
+            color: #585858;
             z-index: 1;
         }
         h1 {
@@ -18,6 +19,7 @@
             top: 0px;
             font-size: 2.4em;
             font-style: black;
+            color: black;
         }
         h2 {
           position: absolute;
@@ -27,16 +29,16 @@
         h4 { 
           position: absolute;         
             top: 80px;
-            font-size: 0.5em;
+            font-size: 0.9em;
         }
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; z-index: 0;}
     </style>
 </head>
 <body>
-    <h1> DEVELOPING THE <b>LITTORAL GRADIENT</b> </h1>
-    <h2> THE SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP LAB ｜ 2015 SEED FUND</h2>
-    <h4> PI: <b>BRENT D. RYAN, FADI MASOUD</b><br>
+    <h1> DEVELOPING THE <font color="black"><b>LITTORAL GRADIENT</b></font></h1>
+    <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB ｜ 2015 SEED FUND</h2>
+    <h4> PI: <font color="black"><b>BRENT D. RYAN, FADI MASOUD</b></font><br>
      RESEARCH ASSISTANT: XI QIU, RICARDO JNANI GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU;<br>
      WEBSITE DEVELOPER: WAISHAN QIU </h4>
 <style>
@@ -52,8 +54,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicWl1d2Fpc2hhbiIsImEiOiJjaWVsb3BicnYwMDJ6NHFrb
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/qiuwaishan/ciuaotk5q002u2ipiqdxmpcen',
-    center: [110.819028, 31.676181],
-    zoom: 3
+    center: [110.819028, 36.676181],
+    zoom: 3.5
 });
 
 map.on('load', function() {
