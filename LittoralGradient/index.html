@@ -51,7 +51,7 @@
 </head>
 <body>
     <h1> DEVELOPING THE <font color="black"><b>LITTORAL GRADIENT</b></font></h1>
-    <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB ｜ 2015 SEED FUND</h2>
+    <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB ｜ 2015 SEED FUND PROJECT</h2>
     <h3> PI: <font color="black"><b>BRENT D. RYAN, FADI MASOUD</b></font></h3>
     <h4>RESEARCH ASSISTANT: XI QIU, RICARDO JNANI GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU;<br> </h4>
     <h5>WEBSITE DEVELOPER: WAISHAN QIU</h5>
@@ -217,7 +217,7 @@ map.on('load', function() {
                     "type": "Point",
                     "coordinates": [118.071545, 24.375603]
                 }
-            },  {
+            }, {
                 "type": "Feature",
                 "properties": {
                     "NO.":13,
@@ -228,7 +228,7 @@ map.on('load', function() {
                     "type": "Point",
                     "coordinates": [116.794815, 23.351280]
                 }
-            },  {
+            }, {
                 "type": "Feature",
                 "properties": {
                     "NO.":14,
@@ -239,7 +239,7 @@ map.on('load', function() {
                     "type": "Point",
                     "coordinates": [113.981644, 22.542547]
                 }
-            },  {
+            }, {
                 "type": "Feature",
                 "properties": {
                     "NO.":15,
@@ -250,7 +250,7 @@ map.on('load', function() {
                     "type": "Point",
                     "coordinates": [113.897426, 22.467981]
                 }
-            },  {
+            }, {
                 "type": "Feature",
                 "properties": {
                     "NO.":16,
@@ -261,7 +261,7 @@ map.on('load', function() {
                     "type": "Point",
                     "coordinates": [113.917381, 22.483525]
                 }
-            },  {
+            }, {
                 "type": "Feature",
                 "properties": {
                     "NO.":17,
@@ -272,7 +272,7 @@ map.on('load', function() {
                     "type": "Point",
                     "coordinates": [113.894893, 22.534546]
                 }
-            },  {
+            }, {
                 "type": "Feature",
                 "properties": {
                     "NO.":18,
@@ -294,7 +294,7 @@ map.on('load', function() {
                     "type": "Point",
                     "coordinates": [113.564301, 22.143678]
                 }
-            },  {
+            }, {
                 "type": "Feature",
                 "properties": {
                     "NO.":20,
@@ -305,7 +305,7 @@ map.on('load', function() {
                     "type": "Point",
                     "coordinates": [109.507710, 18.238009]
                 }
-            },  {
+            }, {
                 "type": "Feature",
                 "properties": {
                     "NO.":21,
@@ -319,17 +319,16 @@ map.on('load', function() {
             }]
         }
     });
-
     // Add a layer showing the places.
     map.addLayer({
-        "id": "places",
-        "type": "symbol",
-        "source": "places",
-        "layout": {
-            "icon-image": "{icon}-15",
-            "icon-allow-overlap": true
-        }
-    });
+    	"id": "places",
+    	"type":"symbol",
+    	"source":"places",
+    	"layout":{
+    		"icon-image":"{icon}-15",
+    		"icon-allow-overlap": true
+    	}
+    })
 });
 
 // Create a popup, but don't add it to the map yet.
