@@ -46,14 +46,14 @@
             font-size: 0.1em;
         }
         body { margin:0; padding:0; }
-        #map { position:absolute; top:40px; bottom:0; width:100%; z-index: 0;}
+        #map { position:absolute; top:45px; bottom:0; width:100%; z-index: 0;}
     </style>
 </head>
 <body>
     <h1> DEVELOPING THE <font color="black"><b>LITTORAL GRADIENT</b></font></h1>
     <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB ｜ 2015 SEED FUND PROJECT</h2>
     <h3> PI: <font color="black"><b>BRENT D. RYAN, FADI MASOUD</b></font></h3>
-    <h4>RESEARCH ASSISTANT: XI QIU, RICARDO JNANI GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU;<br> </h4>
+    <h4>STUDENTS: XI QIU, RICARDO GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU<br> </h4>
     <h5>WEBSITE DEVELOPER: WAISHAN QIU</h5>
 <style>
     .mapboxgl-popup {
@@ -88,7 +88,8 @@ map.on('load', function() {
             "features": [{
                 "type": "Feature",
                 "properties": {
-                    "NO.":1,
+                    "order":1,
+                    "name":"Lingang New Town",
                     "description": "<strong>Lingang New Town</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Lingang New Town</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -99,7 +100,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":2,
+                    "order":2,
+                    "name":"Changxing Island",
                     "description": "<strong>Changxing Island</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Lingang New Town</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -110,7 +112,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":3,
+                    "order":3,
+                    "name": "Caofeidian",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -121,7 +124,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":4,
+                    "order":4,
+                    "name":"Sino-singapore Tianjin Eco-city",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -132,7 +136,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":5,
+                    "order":5,
+                    "name":"Longkou Man-made Island",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -143,7 +148,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":6,
+                    "order":6,
+                    "name":"Xuwei New District",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -154,7 +160,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":7,
+                    "order":7,
+                    "name":"Dongtai Tiaozini",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -165,8 +172,9 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":8,
-                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+                    "order":8,
+                    "name":"Taihu New Town",
+                    "description": "<strong>Taihu New Town</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
                 "geometry": {
@@ -176,8 +184,9 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":9,
-                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+                    "order":9,
+                    "name":"Dongtan Eco-city",
+                    "description": "<strong>Dongtan Eco-city</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
                 "geometry": {
@@ -187,8 +196,9 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":10,
-                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+                    "order":10,
+                    "name":"Binhai New Town",
+                    "description": "<strong>Binhai New Town</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
                 "geometry": {
@@ -198,8 +208,9 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":11,
-                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+                    "order":11,
+                    "name":"Yuhuan New Town",
+                    "description": "<strong>Yuhuan New Town</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
                 "geometry": {
@@ -209,7 +220,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":12,
+                    "order":12,
+                    "name":"Shuangyu Island",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -220,7 +232,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":13,
+                    "order":13,
+                    "name":"Overseas Chinese Experimental Zone",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -231,7 +244,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":14,
+                    "order":14,
+                    "name":"Overseas Chinese Town",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -242,7 +256,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":15,
+                    "order":15,
+                    "name":"Haiwan Park",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -253,7 +268,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":16,
+                    "order":16,
+                    "name":"Shekou Industrial Zone",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -264,7 +280,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":17,
+                    "order":17,
+                    "name":"Qianhai Modern Service Industry Cooperation",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -275,7 +292,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":18,
+                    "order":18,
+                    "name":"Zhuhai-Macou Bridge West and East Man-made Islands",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -286,7 +304,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":19,
+                    "order":19,
+                    "name":"Macau Novos Aterros Urbanos",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -297,7 +316,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":20,
+                    "order":20,
+                    "name":"South Sea Pearl",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -308,7 +328,8 @@ map.on('load', function() {
             }, {
                 "type": "Feature",
                 "properties": {
-                    "NO.":21,
+                    "order":21,
+                    "name":"Phoenix Island",
                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
                     "icon": "hospital"
                 },
@@ -319,16 +340,20 @@ map.on('load', function() {
             }]
         }
     });
+
     // Add a layer showing the places.
     map.addLayer({
-    	"id": "places",
+    	"id": "places-hover",
     	"type":"symbol",
     	"source":"places",
     	"layout":{
     		"icon-image":"{icon}-15",
-    		"icon-allow-overlap": true
+    		"icon-allow-overlap": true,
+    		"text-field":"{order}",
+            "text-offset": [0, 0.2],
+            "text-anchor": "top"
     	}
-    })
+    });
 });
 
 // Create a popup, but don't add it to the map yet.
@@ -338,7 +363,7 @@ var popup = new mapboxgl.Popup({
 });
 
 map.on('mousemove', function(e) {
-    var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
+    var features = map.queryRenderedFeatures(e.point, { layers: ['places-hover'] });
     // Change the cursor style as a UI indicator.
     map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
@@ -349,16 +374,15 @@ map.on('mousemove', function(e) {
 
     var feature = features[0];
 
-    // Populate the popup and set its coordinates
-    // based on the feature found.
+    // Populate the popup and set its coordinates based on the feature found.
     popup.setLngLat(feature.geometry.coordinates)
         .setHTML(feature.properties.description)
         .addTo(map);
 });
 
+// Heatmap Effect
+// Add a new source from our GeoJSON data and set the 'cluster' option to true.
 map.on('load', function() {
-    // Add a new source from our GeoJSON data and set the
-    // 'cluster' option to true.
     map.addSource("heatmap", {
         "type": "geojson",
         "data": {
@@ -641,6 +665,7 @@ map.on('load', function() {
         "filter": ["!=", "cluster", true]
     }, 'waterway-label');
 });
+
 </script>
 
 </body>
