@@ -7,40 +7,54 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
     <style>
-        h1, h2, h3, h4{
-            left: 10px;
-            font-size: 0.6em;
+        h1, h2, h3, h4, h5{
+            font-size: 0.1em;
             font-weight: 100;
             color: #585858;
             z-index: 1;
         }
         h1 {
             position: absolute;
-            top: 0px;
-            font-size: 1.2em;
+            top: : 0px;
+            left:10px;
+            font-size: 1.5em;
             font-style: black;
             color: black;
         }
         h2 {
           position: absolute;
-            top: 25px;
+            top: 30px;
+            left:10px;
             font-size: 0.6em;
+        }
+        h3 { 
+          position: absolute;         
+            right:10px;
+            bottom: 30px;
+            font-size: 0.3em;
         }
         h4 { 
           position: absolute;         
-            top: 35px;
-            font-size: 0.3em;
+            right:10px;
+            bottom: 15px;
+            font-size: 0.1em;
+        }
+        h5 { 
+          position: absolute;         
+            right:10px;
+            bottom: 0px;
+            font-size: 0.1em;
         }
         body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; z-index: 0;}
+        #map { position:absolute; top:55px; bottom:0; width:100%; z-index: 0;}
     </style>
 </head>
 <body>
     <h1> DEVELOPING THE <font color="black"><b>LITTORAL GRADIENT</b></font></h1>
     <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB ｜ 2015 SEED FUND</h2>
-    <h4> PI: <font color="black"><b>BRENT D. RYAN, FADI MASOUD</b></font><br>
-     RESEARCH ASSISTANT: XI QIU, RICARDO JNANI GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU;<br>
-     WEBSITE DEVELOPER: WAISHAN QIU </h4>
+    <h3> PI: <font color="black"><b>BRENT D. RYAN, FADI MASOUD</b></font></h3>
+    <h4>RESEARCH ASSISTANT: XI QIU, RICARDO JNANI GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU;<br> </h4>
+    <h5>WEBSITE DEVELOPER: WAISHAN QIU</h5>
 <style>
     .mapboxgl-popup {
         max-width: 400px;
@@ -51,11 +65,18 @@
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoicWl1d2Fpc2hhbiIsImEiOiJjaWVsb3BicnYwMDJ6NHFrbnU2cHVncm56In0.XNz-KrnFme0pU8MdGtYShQ';
 
+var bounds = [
+    [56.840902, 6.688536], // Southwest coordinates
+    [165.628814, 57.227860]  // Northeast coordinates
+];
+
+
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/qiuwaishan/ciuaotk5q002u2ipiqdxmpcen',
     center: [110.819028, 36.676181],
-    zoom: 3
+    zoom: 3,
+    maxBounds: bounds
 });
 
 map.on('load', function() {
