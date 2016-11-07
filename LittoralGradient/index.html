@@ -66,13 +66,14 @@
 		.mapboxgl-popup-tip {
 			border-top-color: transparent;
 		}
+		#places-hover{font-size: 5px;}
     </style>
 </head>
 <body>
     <h1> DEVELOPING THE <font color="black"><b>LITTORAL GRADIENT</b></font></h1>
     <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB ｜ 2015 SEED FUND PROJECT</h2>
     <h3> PI: <font color="black"><b>BRENT D. RYAN, FADI MASOUD</b></font></h3>
-    <h4>STUDENTS: XI QIU, RICARDO GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU<br> </h4>
+    <h4>STUDENTS: XI QIU, RICARDO GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU, XINHUI LI, BRANDON<br> </h4>
     <h5>WEBSITE DEVELOPER: WAISHAN QIU</h5>
     <div class="mapboxgl-popup mapboxgl-popup-anchor-bottom" style="transform: translate(-50%,-100%) translate (483px, 291px);">...</div>
 </body>
@@ -81,16 +82,15 @@
 	mapboxgl.accessToken = 'pk.eyJ1IjoicWl1d2Fpc2hhbiIsImEiOiJjaWVsb3BicnYwMDJ6NHFrbnU2cHVncm56In0.XNz-KrnFme0pU8MdGtYShQ';
 
 	var bounds = [
-	    [56.840902, 6.688536], // Southwest coordinates
-	    [165.628814, 57.227860]  // Northeast coordinates
+	    [-30.840902, -60.688536], // Southwest coordinates
+	    [340.628814, 80.227860]  // Northeast coordinates
 	];
-
 
 	var map = new mapboxgl.Map({
 	    container: 'map',
 	    style: 'mapbox://styles/qiuwaishan/ciuaotk5q002u2ipiqdxmpcen',
-	    center: [110.819028, 36.676181],
-	    zoom: 3,
+	    center: [125.819028, 36.676181],
+	    zoom: 3.3,
 	    maxBounds: bounds
 	});
 
@@ -105,7 +105,11 @@
 	                "properties": {
 	                    "order":1,
 	                    "name":"Lingang New Town",
-	                    "description": "<strong>Lingang New Town</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Lingang New Town</a> Nanhui, Shanghai</p>",
+	                    "description": "Lingang New Town",
+	                    "href": "http://qiuwaishan.wixsite.com/littoral-gradient",
+	                    "title": "Opens in a new window",
+	                    "city": "Nanhui",
+	                    "province": "Shanghai",
 	                    "icon": "hospital"
 	                },
 	                "geometry": {
@@ -362,9 +366,9 @@
 	    	"type":"symbol",
 	    	"source":"places",
 	    	"layout":{
-	    		"icon-image":"{icon}-15",
+	    		"icon-image":"{icon}-11",
 	    		"icon-allow-overlap": true,
-	    		"text-field":"{order}",
+	    		"text-field":"{name}",
 	            "text-offset": [0, 0.2],
 	            "text-anchor": "top"
 	    	}
@@ -395,291 +399,291 @@
 	        .addTo(map);
 	});
 
-	// Heatmap Effect
-	// Add a new source from our GeoJSON data and set the 'cluster' option to true.
-	map.on('load', function() {
-	    map.addSource("heatmap", {
-	        "type": "geojson",
-	        "data": {
-	            "type": "FeatureCollection",
-	            "features": [{
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":1,
-	                    "description": "<strong>Lingang New Town</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Lingang New Town</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [121.921182, 30.899511]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":2,
-	                    "description": "<strong>Changxing Island</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Lingang New Town</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [121.522796, 39.599248]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":3,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [118.531952,38.936980]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":4,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [117.743740, 39.124365]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":5,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [120.325181, 37.659435]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":6,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [119.540398, 34.530439]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":7,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [120.845484, 32.812294]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":8,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [120.280829, 31.543690]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":9,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [121.917181, 31.517100]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":10,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [121.456179, 29.112174]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":11,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [121.277735, 28.217846]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":12,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [118.071545, 24.375603]
-	                }
-	            },  {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":13,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [116.794815, 23.351280]
-	                }
-	            },  {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":14,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [113.981644, 22.542547]
-	                }
-	            },  {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":15,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [113.897426, 22.467981]
-	                }
-	            },  {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":16,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [113.917381, 22.483525]
-	                }
-	            },  {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":17,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [113.894893, 22.534546]
-	                }
-	            },  {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":18,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [113.418863, 22.199365]
-	                }
-	            }, {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":19,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [113.564301, 22.143678]
-	                }
-	            },  {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":20,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [109.507710, 18.238009]
-	                }
-	            },  {
-	                "type": "Feature",
-	                "properties": {
-	                    "NO.":21,
-	                    "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
-	                    "icon": "hospital"
-	                },
-	                "geometry": {
-	                    "type": "Point",
-	                    "coordinates": [109.493805, 18.240597]
-	                }
-	            }]
-	        },
-	        cluster: true,
-	        clusterMaxZoom: 15, // Max zoom to cluster points on
-	        clusterRadius: 10 // Use small cluster radius for the heatmap look
-	    });
+	// // Heatmap Effect
+	// // Add a new source from our GeoJSON data and set the 'cluster' option to true.
+	// map.on('load', function() {
+	//     map.addSource("heatmap", {
+	//         "type": "geojson",
+	//         "data": {
+	//             "type": "FeatureCollection",
+	//             "features": [{
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":1,
+	//                     "description": "<strong>Lingang New Town</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Lingang New Town</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [121.921182, 30.899511]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":2,
+	//                     "description": "<strong>Changxing Island</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Lingang New Town</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [121.522796, 39.599248]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":3,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [118.531952,38.936980]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":4,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [117.743740, 39.124365]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":5,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [120.325181, 37.659435]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":6,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [119.540398, 34.530439]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":7,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [120.845484, 32.812294]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":8,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [120.280829, 31.543690]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":9,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [121.917181, 31.517100]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":10,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [121.456179, 29.112174]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":11,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [121.277735, 28.217846]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":12,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [118.071545, 24.375603]
+	//                 }
+	//             },  {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":13,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [116.794815, 23.351280]
+	//                 }
+	//             },  {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":14,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [113.981644, 22.542547]
+	//                 }
+	//             },  {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":15,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [113.897426, 22.467981]
+	//                 }
+	//             },  {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":16,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [113.917381, 22.483525]
+	//                 }
+	//             },  {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":17,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [113.894893, 22.534546]
+	//                 }
+	//             },  {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":18,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [113.418863, 22.199365]
+	//                 }
+	//             }, {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":19,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [113.564301, 22.143678]
+	//                 }
+	//             },  {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":20,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [109.507710, 18.238009]
+	//                 }
+	//             },  {
+	//                 "type": "Feature",
+	//                 "properties": {
+	//                     "NO.":21,
+	//                     "description": "<strong>Caofeidian Industrial Park</strong><p><a href=\"http://qiuwaishan.wixsite.com/littoral-gradient\" target=\"_blank\" title=\"Opens in a new window\">Caofeidian Industrial Park</a> Nanhui, Shanghai</p>",
+	//                     "icon": "hospital"
+	//                 },
+	//                 "geometry": {
+	//                     "type": "Point",
+	//                     "coordinates": [109.493805, 18.240597]
+	//                 }
+	//             }]
+	//         },
+	//         cluster: true,
+	//         clusterMaxZoom: 15, // Max zoom to cluster points on
+	//         clusterRadius: 10 // Use small cluster radius for the heatmap look
+	//     });
 
-	    // Use the earthquakes source to create four layers:
-	    // three for each cluster category, and one for unclustered points
+	//     // Use the earthquakes source to create four layers:
+	//     // three for each cluster category, and one for unclustered points
 
-	    // Each point range gets a different fill color.
-	    var layers = [
-	        [0, '#808080'],
-	        [20, '#B0B0B0'],
-	        [200, '#D8D8D8']
-	    ];
+	//     // Each point range gets a different fill color.
+	//     var layers = [
+	//         [0, '#808080'],
+	//         [20, '#B0B0B0'],
+	//         [200, '#D8D8D8']
+	//     ];
 
-	    layers.forEach(function (layer, i) {
-	        map.addLayer({
-	            "id": "cluster-" + i,
-	            "type": "circle",
-	            "source": "heatmap",
-	            "paint": {
-	                "circle-color": layer[1],
-	                "circle-radius": 70,
-	                "circle-blur": 1 // blur the circles to get a heatmap look
-	            },
-	            "filter": i === layers.length - 1 ?
-	                [">=", "point_count", layer[0]] :
-	                ["all",
-	                    [">=", "point_count", layer[0]],
-	                    ["<", "point_count", layers[i + 1][0]]]
-	        }, 'waterway-label');
-	    });
+	//     layers.forEach(function (layer, i) {
+	//         map.addLayer({
+	//             "id": "cluster-" + i,
+	//             "type": "circle",
+	//             "source": "heatmap",
+	//             "paint": {
+	//                 "circle-color": layer[1],
+	//                 "circle-radius": 70,
+	//                 "circle-blur": 1 // blur the circles to get a heatmap look
+	//             },
+	//             "filter": i === layers.length - 1 ?
+	//                 [">=", "point_count", layer[0]] :
+	//                 ["all",
+	//                     [">=", "point_count", layer[0]],
+	//                     ["<", "point_count", layers[i + 1][0]]]
+	//         }, 'waterway-label');
+	//     });
 
-	    map.addLayer({
-	        "id": "unclustered-points",
-	        "type": "circle",
-	        "source": "heatmap",
-	        "paint": {
-	            "circle-color": '#B0B0B0',
-	            "circle-radius": 20,
-	            "circle-blur": 1
-	        },
-	        "filter": ["!=", "cluster", true]
-	    }, 'waterway-label');
-	});
+	//     map.addLayer({
+	//         "id": "unclustered-points",
+	//         "type": "circle",
+	//         "source": "heatmap",
+	//         "paint": {
+	//             "circle-color": '#B0B0B0',
+	//             "circle-radius": 20,
+	//             "circle-blur": 1
+	//         },
+	//         "filter": ["!=", "cluster", true]
+	//     }, 'waterway-label');
+	// });
 </script>
 
 </body>
