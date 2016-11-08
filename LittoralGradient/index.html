@@ -48,7 +48,7 @@
         body { margin:0; padding:0; }
         #map { position:absolute; top:45px; bottom:0; width:100%; z-index: 0;}
         .mapboxgl-popup-content {
-			background: transparent;
+			background: white;
 			max-width: 600px; 
 			font: 10px/12px Helvetica;
 			box-shadow: none;
@@ -65,9 +65,7 @@
 		.mapboxgl-popup-anchor-bottom 
 		.mapboxgl-popup-tip {
 			border-top-color: transparent;
-		}
-		#places-hover{
-			font-size: 5px;
+			border-bottom-color: transparent;
 		}
 		#buttons {
         width: 30%;
@@ -76,20 +74,30 @@
     	.button {
 	        display: inline-block;
 	        position: relative;
-            top: 50px;
+            top: 60px;
             left:10px;
 	        cursor: pointer;
-	        width: 20%;
-	        padding: 3px;
+	        padding: 6px;
 	        border-radius: 3px;
-	        margin-top: 8px;
+	        margin-top: 5px;
+	        margin-right: 5px;
 	        font-size: 10px;
-	        text-align: center;
-	        color: #fff;
-	        background: #000000;
+	        text-align: left;
+	        color: #000000;
+	        background: none;
 	        font-family: sans-serif;
-	        font-weight: bold;
+	        /*font-weight: bold;*/
 	        z-index: 3;
+	    }
+	    #button-zh{
+	    	position: absolute;
+	    	top:40px;
+	    	left:5px;
+	    }
+	    #button-en{
+	    	position: absolute;
+	    	top:40px;
+	    	left:60px;
 	    }
     </style>
 </head>
@@ -416,9 +424,9 @@
 	    		"icon-image":"{icon}-15",
 	    		"icon-allow-overlap": true,
 	    		"text-field":"{name}",
-	            "text-offset": [0, 0.5],
-	            "text-anchor": "top",
-				"text-size" : 11,
+	            "text-offset": [1, 0],
+	            "text-anchor": "left",
+				"text-size" : 10,
 				"icon-ignore-placement": true,
 				"text-ignore-placement": true
 	    	},
@@ -432,7 +440,7 @@
 		anchor:'left',
 	    closeButton: false,
 	    closeOnClick: false,
-	    offset: 8
+	    offset: 5
 	});
 
 	map.on('mousemove', function(e) {
