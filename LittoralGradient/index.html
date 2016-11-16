@@ -7,11 +7,12 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
     <style>
-        h1, h2, h3, h4, h5{
+        h1, h2, h3, h4, h5, h6{
             font-size: 0.1em;
             font-weight: 100;
             color: #585858;
             z-index: 1;
+            font: 10px/12px Helvetica;
         }
         h1 {
             position: absolute;
@@ -23,30 +24,37 @@
         }
         h2 {
           position: absolute;
-            top: 20px;
+            top: 22px;
             left:10px;
             font-size: 0.6em;
         }
-        h3 { 
-          position: absolute;         
-            right:10px;
-            bottom: 30px;
-            font-size: 0.3em;
+        h3 {
+          position: absolute;
+            top: 35px;
+            left:10px;
+            font-size: 0.6em;
         }
+
         h4 { 
           position: absolute;         
             right:10px;
-            bottom: 15px;
-            font-size: 0.1em;
+            bottom: 35px;
+            font-size: 0.3em;
         }
         h5 { 
+          position: absolute;         
+            right:10px;
+            bottom: 20px;
+            font-size: 0.1em;
+        }
+        h6 { 
           position: absolute;         
             right:10px;
             bottom: 0px;
             font-size: 0.1em;
         }
         body { margin:0; padding:0; }
-        #map { position:absolute; top:45px; bottom:0; width:100%; z-index: 0;}
+        #map { position:absolute; top:65px; bottom:0; width:100%; z-index: 0;}
         .mapboxgl-popup-content {
 			background: white;
 			max-width: 600px; 
@@ -91,22 +99,23 @@
 	    }
 	    #button-zh{
 	    	position: absolute;
-	    	top:40px;
+	    	top:55px;
 	    	left:5px;
 	    }
 	    #button-en{
 	    	position: absolute;
-	    	top:40px;
+	    	top:55px;
 	    	left:60px;
 	    }
     </style>
 </head>
 <body>
     <h1> DEVELOPING THE <font color="black"><b>LITTORAL GRADIENT</b></font></h1>
-    <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB ｜ 2015 SEED FUND PROJECT</h2>
-    <h3> PI: <font color="black"><b>BRENT D. RYAN, FADI MASOUD</b></font></h3>
-    <h4>STUDENTS: XI QIU, RICARDO GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU, XINHUI LI, BRANDON<br> </h4>
-    <h5>WEBSITE DEVELOPER: WAISHAN QIU</h5>
+    <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB</h2>
+    <h3> THE <font color="black"><b>LEVENTHAL CENTER FOR ADVANCED URBANISM</b></font> LAB</h3>
+    <h4> PI: <font color="black"><b>FADI MASOUD, BRENT D. RYAN</b></font></h4>
+    <h5>STUDENTS: XI QIU, RICARDO GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU, XINHUI LI, BRANDON<br> </h5>
+    <h6>WEBSITE DEVELOPER: WAISHAN QIU</h6>
     <div class="mapboxgl-popup mapboxgl-popup-anchor-bottom" style="transform: translate(-50%,-100%) translate (483px, 291px);">...</div>
 </body>
 <div id='map'></div>
