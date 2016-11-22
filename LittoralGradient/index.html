@@ -5,9 +5,10 @@
     <title>Littoral Gradient</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
     <style>
-        h1, h2, h3, h4, h5, h6{
+        h1, h2, h3, h4, h5, h6, ul, li, strong{
             font-size: 0.1em;
             font-weight: 100;
             color: #585858;
@@ -18,23 +19,22 @@
             position: absolute;
             top: : 0px;
             left:10px;
-            font-size: 1.2em;
+            font-size: 1.4em;
             font-style: black;
             color: black;
         }
         h2 {
           position: absolute;
-            top: 22px;
+            top: 28px;
             left:10px;
             font-size: 0.6em;
         }
         h3 {
           position: absolute;
-            top: 35px;
+            top: 40px;
             left:10px;
             font-size: 0.6em;
         }
-
         h4 { 
           position: absolute;         
             right:10px;
@@ -53,72 +53,80 @@
             bottom: 0px;
             font-size: 0.1em;
         }
-
+        strong { 
+			position: relative;         
+            font-size: 1.5em;
+            font-style: black;
+            color: black;
+            padding-bottom: 10px;
+        }
         body { margin:0; padding:0; }
-        
-        #map { position:absolute; top:70px; right: 10px; bottom:0; width:100%; z-index: 0;}
-
+        #map { position:absolute; top:65px; right: 10px; bottom:0; width:100%; z-index: 0;}
         .mapboxgl-popup-content {
-            background: white;
-            max-width: 700px; 
-            font: 10px/12px Helvetica;
-            box-shadow: none;
-            word-spacing:0px;
-            letter-spacing: 0px;
-            max-height:600px;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-        p {
-        display: block;
-        -webkit-margin-before: 0;
-        -webkit-margin-after: 0;
-        -webkit-margin-start: 0px;
-        -webkit-margin-end: 0px;
-        }
-        .mapboxgl-popup-anchor-bottom 
-        .mapboxgl-popup-tip {
-            border-top-color: transparent;
-            border-bottom-color: transparent;
-        }
-        #buttons {
+			background: (255,255,255,0.4);
+			max-width: 900px; 
+			font: 10px/12px Helvetica;
+			box-shadow: none;
+			word-spacing:0px;
+			letter-spacing: 0px;
+			max-height:50%;
+			overflow-x: hidden;
+			overflow-y: auto;
+			padding:20px;
+			position:absolute;
+			top:50%;
+			left:75%;
+			transform:translate(-50%,-50%);
+			display:none;
+		}
+		p {
+		display: block;
+		-webkit-margin-before: 0;
+		-webkit-margin-after: 0;
+		-webkit-margin-start: 0px;
+		-webkit-margin-end: 0px;
+		}
+		.mapboxgl-popup-anchor-bottom 
+		.mapboxgl-popup-tip {
+			border-top-color: transparent;
+			border-bottom-color: transparent;
+		}
+		#buttons {
         width: 30%;
         margin: 0 auto;
-        }
-        .button {
-            display: inline-block;
-            position: relative;
-            top: 60px;
-            left:10px;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 3px;
-            margin-top: 5px;
-            margin-right: 5px;
-            font-size: 10px;
-            text-align: left;
-            color: #000000;
-            background: none;
-            font-family: sans-serif;
-            /*font-weight: bold;*/
-            z-index: 3;
-        }
-        #button-zh{
-            position: absolute;
-            top:65px;
-            left:5px;
-        }
-        #button-en{
-            position: absolute;
-            top:65px;
-            left:60px;
-        }
+    	}
+    	.button {
+	        display: inline-block;
+	        position: relative;
+	        cursor: pointer;
+	        padding: 6px;
+	        border-radius: 3px;
+	        margin-top: 5px;
+	        margin-right: 5px;
+	        font-size: 10px;
+	        text-align: left;
+	        color: #000000;
+	        background: none;
+	        font-family: sans-serif;
+	        /*font-weight: bold;*/
+	        z-index: 3;
+	    }
+	    #button-zh{
+	    	position: absolute;
+	    	top:65px;
+	    	left:5px;
+	    }
+	    #button-en{
+	    	position: absolute;
+	    	top:65px;
+	    	left:60px;
+	    }
     </style>
 </head>
 <body>
-    <h1> DEVELOPING THE <font color="black"><b>LITTORAL GRADIENT</b></font></h1>
+    <h1> <font color="black"><b>DEVELOPING THE LITTORAL GRADIENT ATLAS</b></font></h1>
     <h2> THE <font color="black"><b>SAMUEL TAK LEE MIT REAL ESTATE ENTREPRENEURSHIP</b></font> LAB</h2>
-    <h3> THE <font color="black"><b>LEVENTHAL CENTER FOR ADVANCED URBANISM</b></font> LAB</h3>
+    <h3> THE <font color="black"><b>LEVENTHAL CENTER FOR ADVANCED URBANISM</b></font></h3>
     <h4> PI: <font color="black"><b>FADI MASOUD, BRENT D. RYAN</b></font></h4>
     <h5>STUDENTS: XI QIU, RICARDO GONZALEZ, CANER OKTEM, SEAN PHILLIPS, XHULIO BINJAKU, XINHUI LI, BRANDON<br> </h5>
     <h6>WEBSITE DEVELOPER: WAISHAN QIU</h6>
@@ -129,382 +137,391 @@
     <li id='button-zh' class='button'>Chinese</li>
     <li id='button-en' class='button'>English</li>
 </ul>
+
+<div class="mapboxgl-popup-content">
+</div>
 <script>
-    // Information of the Case Studies as a GeoJSON called 'cases'
-    var DIYIcon = "circle"
-    var cases =  {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "properties": {
-                        "order":1,
-                        "name":"Lingang New Town",
-                        "description": " <strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\"> </p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",                     
-                        "href": "http://qiuwaishan.wixsite.com/littoral-gradient",
-                        "title": "Opens in a new window",
-                        "image": "images/qiuwaishan.png",
-                        "city": "Nanhui",
-                        "province": "Shanghai",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [121.921182, 30.899511]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":2,
-                        "name":"Changxing Island",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [121.522796, 39.599248]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":3,
-                        "name": "Caofeidian",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [118.531952,38.936980]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":4,
-                        "name":"Sino-singapore Tianjin Eco-city",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [117.743740, 39.124365]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":5,
-                        "name":"Longkou Man-made Island",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [120.325181, 37.659435]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":6,
-                        "name":"Xuwei New District",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [119.540398, 34.530439]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":7,
-                        "name":"Dongtai Tiaozini",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [120.845484, 32.812294]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":8,
-                        "name":"Taihu New Town",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [120.280829, 31.543690]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":9,
-                        "name":"Dongtan Eco-city",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [121.917181, 31.517100]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":10,
-                        "name":"Binhai New Town",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [121.456179, 29.112174]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":11,
-                        "name":"Yuhuan New Town",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [121.277735, 28.217846]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":12,
-                        "name":"Shuangyu Island",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [118.071545, 24.375603]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":13,
-                        "name":"Overseas Chinese Experimental Zone",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [116.794815, 23.351280]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":14,
-                        "name":"Overseas Chinese Town",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [113.981644, 22.542547]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":15,
-                        "name":"Haiwan Park",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [113.897426, 22.467981]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":16,
-                        "name":"Shekou Industrial Zone",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [113.917381, 22.483525]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":17,
-                        "name":"Qianhai Modern Service Industry Cooperation",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [113.894893, 22.534546]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":18,
-                        "name":"Zhuhai-Macou Bridge West and East Man-made Islands",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [113.418863, 22.199365]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":19,
-                        "name":"Macau Novos Aterros Urbanos",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [113.564301, 22.143678]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":20,
-                        "name":"South Sea Pearl",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [109.507710, 18.238009]
-                    }
-                }, {
-                    "type": "Feature",
-                    "properties": {
-                        "order":21,
-                        "name":"Phoenix Island",
-                        "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
-                        "icon": DIYIcon
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [109.493805, 18.240597]
-                    }
-                }]
-            };
+	// Information of the Case Studies as a GeoJSON called 'cases'
+	var DIYIcon = "circle"
+	var cases =  {
+	            "type": "FeatureCollection",
+	            "features": [{
+	                "type": "Feature",
+	                "properties": {
+	                    "order":1,
+	                    "name":"Lingang New Town",
+	                    "description": " <strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\"> </p> <img src=\"images/Lingang.png\" style=\"width:900px;\">",	                  
+	                    "href": "http://qiuwaishan.wixsite.com/littoral-gradient",
+	                    "title": "Opens in a new window",
+	                    "image": "images/qiuwaishan.png",
+	                    "city": "Nanhui",
+	                    "province": "Shanghai",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [121.921182, 30.899511]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":2,
+	                    "name":"Changxing Island",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:900px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [121.522796, 39.599248]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":3,
+	                    "name": "Caofeidian",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:900px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [118.531952,38.936980]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":4,
+	                    "name":"Sino-singapore Tianjin Eco-city",
+	                    "description": "<strong>Lingang New Town</strong> <p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:900px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [117.743740, 39.124365]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":5,
+	                    "name":"Longkou Man-made Island",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:900px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [120.325181, 37.659435]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":6,
+	                    "name":"Xuwei New District",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:900px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [119.540398, 34.530439]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":7,
+	                    "name":"Dongtai Tiaozini",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:900px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [120.845484, 32.812294]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":8,
+	                    "name":"Taihu New Town",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [120.280829, 31.543690]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":9,
+	                    "name":"Dongtan Eco-city",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [121.917181, 31.517100]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":10,
+	                    "name":"Binhai New Town",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [121.456179, 29.112174]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":11,
+	                    "name":"Yuhuan New Town",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [121.277735, 28.217846]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":12,
+	                    "name":"Shuangyu Island",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [118.071545, 24.375603]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":13,
+	                    "name":"Overseas Chinese Experimental Zone",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [116.794815, 23.351280]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":14,
+	                    "name":"Overseas Chinese Town",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [113.981644, 22.542547]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":15,
+	                    "name":"Haiwan Park",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [113.897426, 22.467981]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":16,
+	                    "name":"Shekou Industrial Zone",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [113.917381, 22.483525]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":17,
+	                    "name":"Qianhai Modern Service Industry Cooperation",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [113.894893, 22.534546]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":18,
+	                    "name":"Zhuhai-Macou Bridge West and East Man-made Islands",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [113.418863, 22.199365]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":19,
+	                    "name":"Macau Novos Aterros Urbanos",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [113.564301, 22.143678]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":20,
+	                    "name":"South Sea Pearl",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [109.507710, 18.238009]
+	                }
+	            }, {
+	                "type": "Feature",
+	                "properties": {
+	                    "order":21,
+	                    "name":"Phoenix Island",
+	                    "description": "<strong>Lingang New Town</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p> <img src=\"images/Lingang.png\" style=\"width:600px;\">",
+	                    "icon": DIYIcon
+	                },
+	                "geometry": {
+	                    "type": "Point",
+	                    "coordinates": [109.493805, 18.240597]
+	                }
+	            }]
+	        };
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoicWl1d2Fpc2hhbiIsImEiOiJjaWVsb3BicnYwMDJ6NHFrbnU2cHVncm56In0.XNz-KrnFme0pU8MdGtYShQ';
+	mapboxgl.accessToken = 'pk.eyJ1IjoicWl1d2Fpc2hhbiIsImEiOiJjaWVsb3BicnYwMDJ6NHFrbnU2cHVncm56In0.XNz-KrnFme0pU8MdGtYShQ';
 
-    var bounds = [
-        [-30.840902, -60.688536], // Southwest coordinates
-        [340.628814, 80.227860]  // Northeast coordinates
-    ];
+	var bounds = [
+	    [-30.840902, -60.688536], // Southwest coordinates
+	    [340.628814, 80.227860]  // Northeast coordinates
+	];
 
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/qiuwaishan/ciuaotk5q002u2ipiqdxmpcen',
-        center: [122.819028, 36.676181],
-        zoom: 3.3,
-        maxBounds: bounds
-    });
+	var map = new mapboxgl.Map({
+	    container: 'map',
+	    style: 'mapbox://styles/qiuwaishan/ciuaotk5q002u2ipiqdxmpcen',
+	    center: [122.819028, 36.676181],
+	    zoom: 3.3,
+	    maxBounds: bounds
+	});
 
-    map.on('load', function() {
-        // Add a GeoJSON source containing place coordinates and information.
-        map.addSource("places", {
-            "type": "geojson",
-            "data": cases           
-        });
+	map.on('load', function() {
+	    // Add a GeoJSON source containing place coordinates and information.
+	    map.addSource("places", {
+	        "type": "geojson",
+	        "data": cases	        
+	    });
 
-        // Add a layer showing the places in default condition.
-        map.addLayer({
-            "id": "cases",
-            "type":"symbol",
-            "source":"places",
-            "layout":{
-                "icon-image":"{icon}-11",
-                "icon-allow-overlap": true,
-                //"text-field":"{name}",
-                "text-offset": [0, 0.5],
-                "text-anchor": "top",
-                "text-size" : 11,
-            }
-        });
+	    // Add a layer showing the places in default condition.
+	    map.addLayer({
+	    	"id": "cases",
+	    	"type":"symbol",
+	    	"source":"places",
+	    	"layout":{
+	    		"icon-image":"{icon}-11",
+	    		"icon-allow-overlap": true,
+	    		//"text-field":"{name}",
+	            "text-offset": [0, 0.5],
+	            "text-anchor": "top",
+				"text-size" : 11,
+	    	}
+	    });
 
-        // Add a layer showing the places in hover condition.
-        map.addLayer({
-            "id": "cases-hover",
-            "type":"symbol",
-            "source":"places",
-            "layout":{
-                "icon-image":"{icon}-15",
-                "icon-allow-overlap": true,
-                "text-field":"{name}",
-                "text-offset": [1, 0],
-                "text-anchor": "left",
-                "text-size" : 10,
-                "icon-ignore-placement": true,
-                "text-ignore-placement": true
-            },
-            "filter": ['==', 'order', '9999']
-        });
+	    // Add a layer showing the places in hover condition.
+	    map.addLayer({
+	    	"id": "cases-hover",
+	    	"type":"symbol",
+	    	"source":"places",
+	    	"layout":{
+	    		"icon-image":"{icon}-15",
+	    		"icon-allow-overlap": true,
+	    		"text-field":"{name}",
+	            "text-offset": [1, 0],
+	            "text-anchor": "left",
+				"text-size" : 10,
+				"icon-ignore-placement": true,
+				"text-ignore-placement": true
+	    	},
+	    	"filter": ['==', 'order', '9999']
+	    });
 
-    });
+	});
 
-    // Create a popup, but don't add it to the map yet.
-    /*var popup = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: false,
-        anchor:'bottom-left',
-        offset: 5
-    });
+	// Create a popup, but don't add it to the map yet.
+	/*var popup = new mapboxgl.Popup({
+	    closeButton: false,
+	    closeOnClick: false,
+		anchor:'bottom-left',
+	    offset: 5
+	});
 */
-    map.on('mousemove', function(e) {
-        var features = map.queryRenderedFeatures(e.point, { layers: ['cases'] });
-        // Change the cursor style as a UI indicator.
-        map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+	map.on('mousemove', function(e) {
+	    var features = map.queryRenderedFeatures(e.point, { layers: ['cases'] });
+	    // Change the cursor style as a UI indicator.
+	    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-        if (!features.length) {
-            popup.remove();
-            return;
-        }
-        var order = features[0].properties.order;
-        map.setFilter( 'cases-hover', ['==', 'order', order]);
-    });
+	    if (!features.length) {
+	        popup.remove();
+	        return;
+	    }
+	    var order = features[0].properties.order;
+		map.setFilter( 'cases-hover', ['==', 'order', order]);
+	});
 
-    document.getElementById('buttons').addEventListener('click', function(event) {
-        var language = event.target.id.substr('button-'.length);
-        // Use setLayoutProperty to set the value of a layout property in a style layer.
-        // The three arguments are the id of the layer, the name of the layout property,
-        // and the new property value.
-        var layout= ['country-label-lg','country-label-md','country-label-sm','place-city-lg-n','place-city-lg-s','place-city-md-n','place-city-md-s','place-city-sm'];
-        var val;
-        for (val of layout) {
-            map.setLayoutProperty(val, 'text-field', '{name_' + language + '}');
-        };
-    });
 
-        // When a click event occurs near a place, open a popup at the location of
-    // the feature, with description HTML from its properties.
-    map.on('click', function (e) {
-        var features = map.queryRenderedFeatures(e.point, { layers: ['cases'] });
-        if (!features.length) {
-            return;
-        }
-        var feature = features[0];
-        var popup = new mapboxgl.Popup({
-            closeButton: false,
-            closeOnClick: true,
-            anchor:'left',
-            offset: 5
-        })
+		// When a click event occurs near a place, open a popup at the location of
+	// the feature, with description HTML from its properties.
+	map.on('click', function (e) {
+	    var features = map.queryRenderedFeatures(e.point, { layers: ['cases'] });
+	    if (!features.length) {
+			$(".mapboxgl-popup-content").hide();
+	        return;
+	    }
+	    var feature = features[0];
+		$(".mapboxgl-popup-content").html(feature.properties.description).show();
+	   /* var popup = new mapboxgl.Popup({
+	    closeButton: false,
+	    closeOnClick: false,
+		anchor:'left',
+	    offset: 5
+		})
         .setLngLat(feature.geometry.coordinates)
-        .setHTML(feature.properties.description)
-        .addTo(map);
-    });
+	    .setHTML(feature.properties.description)
+	    .addTo(map);*/
+		
+	});
 
-    // Add zoom and rotation controls to the map.
-    map.addControl(new mapboxgl.NavigationControl());
+	// Add zoom and rotation controls to the map.
+	map.addControl(new mapboxgl.NavigationControl());
+
+	document.getElementById('buttons').addEventListener('click', function(event) {
+	    var language = event.target.id.substr('button-'.length);
+	    // Use setLayoutProperty to set the value of a layout property in a style layer.
+	    // The three arguments are the id of the layer, the name of the layout property,
+	    // and the new property value.
+	    var layout= ['country-label-lg','country-label-md','country-label-sm','place-city-lg-n','place-city-lg-s','place-city-md-n','place-city-md-s','place-city-sm'];
+	    var val;
+		for (val of layout) {
+		    map.setLayoutProperty(val, 'text-field', '{name_' + language + '}');
+		};
+	});
+
+
 </script>
 
 </body>
