@@ -7,6 +7,8 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
 	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
+	<link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
     <style>
         h1, h2, h3, h4, h5, h6, ul, li, strong{
             font-size: 0.1em;
@@ -19,7 +21,7 @@
             position: absolute;
             top: : 0px;
             left:10px;
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-style: black;
             color: black;
         }
@@ -459,7 +461,6 @@
 	    	},
 	    	"filter": ['==', 'order', '9999']
 	    });
-
 	});
 
 	// Create a popup, but don't add it to the map yet.
@@ -509,6 +510,11 @@
 	// Add zoom and rotation controls to the map.
 	map.addControl(new mapboxgl.NavigationControl());
 
+	map.addControl(new mapboxgl.ScaleControl({
+	    maxWidth: 100,
+	    unit: 'imperial'
+	}));
+
 	document.getElementById('buttons').addEventListener('click', function(event) {
 	    var language = event.target.id.substr('button-'.length);
 	    // Use setLayoutProperty to set the value of a layout property in a style layer.
@@ -520,7 +526,6 @@
 		    map.setLayoutProperty(val, 'text-field', '{name_' + language + '}');
 		};
 	});
-
 
 </script>
 
